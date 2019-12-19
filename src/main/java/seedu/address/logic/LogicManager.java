@@ -22,6 +22,7 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    private static FunctionMode mode = FunctionMode.UNDEFINED;
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -74,5 +75,13 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public static FunctionMode getMode() {
+        return mode;
+    }
+
+    public static void setMode(FunctionMode mode) {
+        LogicManager.mode = mode;
     }
 }

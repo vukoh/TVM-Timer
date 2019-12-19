@@ -12,9 +12,16 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CalculateCommandResult;
+import seedu.address.logic.commands.commandresults.FinishCommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
+import seedu.address.logic.commands.commandresults.RegisterCommandResult;
+import seedu.address.logic.commands.commandresults.StartCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.UnknownCommandResultTypeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -169,25 +176,86 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            UnknownCommandResultTypeException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult.isGlobalCommandResult()) {
+                executeGlobalCommandHelper((GlobalCommandResult) commandResult);
+            } else if (commandResult.isRegisterCommandResult()) {
+                executeRegisterCommandHelper((RegisterCommandResult) commandResult);
+            } else if (commandResult.isStartCommandResult()) {
+                executeStartCommandHelper((StartCommandResult) commandResult);
+            } else if (commandResult.isFinishCommandResult()) {
+                executeFinishCommandHelper((FinishCommandResult) commandResult);
+            } else if (commandResult.isCalculateCommandResult()) {
+                executeCalculateCommandHelper((CalculateCommandResult) commandResult);
+            } else {
+                throw new UnknownCommandResultTypeException("Invalid CommandResult type!");
             }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | UnknownCommandResultTypeException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void executeGlobalCommandHelper(GlobalCommandResult globalCommandResult) {
+        if (globalCommandResult.isShowHelp()) {
+            handleHelp();
+        }
+
+        if (globalCommandResult.isExit()) {
+            handleExit();
+        }
+
+        if (globalCommandResult.isToggle()) {
+            toggleModeTo(globalCommandResult.getTargetMode().get());
+        }
+    }
+
+    /**
+     * Switches the list of available commands based on the function that the user wants to use.
+     * @param targetMode Function mode that user wants to switch to
+     */
+    private void toggleModeTo (FunctionMode targetMode) {
+        //To change to reflect GUI changes, if any
+        switch (targetMode) {
+            case REGISTER:
+                System.out.println("Switched to 'Register' mode");
+                break;
+            case START:
+                System.out.println("Switched to 'Start' mode");
+                break;
+            case FINISH:
+                System.out.println("Switched to 'Finish' mode");
+                break;
+            case CALCULATE:
+                System.out.println("Switched to 'Calculate' mode");
+                break;
+            default:
+                //Left blank now as placeholder
+        }
+    }
+
+    private void executeRegisterCommandHelper(RegisterCommandResult registerCommandResult) {
+        //To fill
+    }
+
+    private void executeStartCommandHelper(StartCommandResult startCommandResult) {
+        //To fill
+    }
+
+    private void executeFinishCommandHelper(FinishCommandResult finishCommandResult) {
+        //To fill
+    }
+
+    private void executeCalculateCommandHelper(CalculateCommandResult calculateCommandResult) {
+        //To fill
     }
 }

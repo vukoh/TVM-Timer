@@ -2,19 +2,17 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.SPECIFY_MODE;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -43,24 +41,8 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case SwitchModeCommand.COMMAND_WORD:
+            return new SwitchModeCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -69,7 +51,82 @@ public class AddressBookParser {
             return new HelpCommand();
 
         default:
+            switch (LogicManager.getMode()) {
+            case REGISTER:
+                return parseRegisterCommands(commandWord, arguments);
+
+            case START:
+                return parseStartCommands(commandWord, arguments);
+
+            case FINISH:
+                return parseFinishCommands(commandWord, arguments);
+
+            case CALCULATE:
+                return parseCalculateCommands(commandWord, arguments);
+
+            default:
+                throw new ParseException(SPECIFY_MODE);
+            }
+        }
+    }
+
+    /**
+     * Parses user input into command for execution for 'Register' mode commands.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseRegisterCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+        // To add in commands
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into command for execution for 'Start' mode commands.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseStartCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+            // To add in commands
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into command for execution for 'Finish' mode commands.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseFinishCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+            // To add in commands
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into command for execution for 'Calculate' mode commands.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseCalculateCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+            // To add in commands
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
