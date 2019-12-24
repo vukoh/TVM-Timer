@@ -18,4 +18,22 @@ public class EndTime {
     public EndTime() {
         endTime = Instant.now();
     }
+
+    public Instant getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EndTime)) {
+            return false;
+        }
+
+        EndTime otherEndTime = (EndTime) other;
+        return otherEndTime.getEndTime().equals(getEndTime());
+    }
 }

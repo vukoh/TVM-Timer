@@ -10,11 +10,28 @@ public class StartTime {
     //Instant object type used to be able to compare from a fixed standard starting time
     private Instant startTime;
 
+    public Instant getStartTime() {
+        return startTime;
+    }
+
     /**
-     * Constructs a {@code StartTime}.
      * Initializes startTime variable to local system time.
      */
-    public StartTime() {
-        startTime = Instant.now();
+    public void start() {
+        this.startTime = Instant.now();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof StartTime)) {
+            return false;
+        }
+
+        StartTime otherStartTime = (StartTime) other;
+        return otherStartTime.getStartTime().equals(getStartTime());
     }
 }
