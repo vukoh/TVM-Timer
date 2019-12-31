@@ -1,20 +1,17 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonRegister;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code PersonRegister}.
  */
-public class PersonCard extends UiPart<Region> {
+public class PersonRegisterCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PersonRegisterListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final PersonRegister person;
 
     @FXML
     private HBox cardPane;
@@ -33,27 +30,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label bibNumber;
     @FXML
-    private Label address;
+    private Label teamNumber;
     @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label category;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonRegisterCard(PersonRegister person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        /*
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        */
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        bibNumber.setText(person.getBibNumber().bibNumber);
+        category.setText(person.getCategory().toString());
     }
 
     @Override
@@ -64,12 +53,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PersonRegisterCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PersonRegisterCard card = (PersonRegisterCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
