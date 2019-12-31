@@ -8,19 +8,17 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.DuplicatePersonRegisterException;
+import seedu.address.model.person.exceptions.PersonRegisterNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
- *
- * Supports a minimal set of list operations.
- *
- * @see Person#isSamePerson(Person)
+ * A list of personRegisters that enforces uniqueness between its elements and does not allow nulls.
+ * A personRegister is considered unique by comparing using {@code PersonRegister#equals(Object)}.
+ * As such, adding and updating of persons uses PersonRegister#isSamePersonRegister(PersonRegister) for equality so
+ * as to ensure that the person being added or updated is unique in terms of identity in the UniquePersonRegisterList.
+ * However, the removal of a person uses PersonRegister#equals(Object) so as to ensure that the person with exactly
+ * the same fields will be removed. Supports a minimal set of list operations.
+ * @see PersonRegister#equals(Object)
  */
 public class UniquePersonRegisterList implements Iterable<PersonRegister> {
 
@@ -29,7 +27,7 @@ public class UniquePersonRegisterList implements Iterable<PersonRegister> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent personRegister as the given argument.
      */
     public boolean contains(PersonRegister toCheck) {
         requireNonNull(toCheck);
@@ -37,45 +35,46 @@ public class UniquePersonRegisterList implements Iterable<PersonRegister> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a personRegister to the list.
+     * The personRegister must not already exist in the list.
      */
     public void add(PersonRegister toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePersonRegisterException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the personRegister {@code target} in the list with {@code editedPersonRegister}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The person identity of {@code editedPersonRegister} must not be the same as another existing personRegister in
+     * the list.
      */
-    public void setPersonRegister(PersonRegister target, PersonRegister editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPersonRegister(PersonRegister target, PersonRegister editedPersonRegister) {
+        requireAllNonNull(target, editedPersonRegister);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new PersonRegisterNotFoundException();
         }
 
-        if (!target.equals(editedPerson) && contains(editedPerson)) {
-            throw new DuplicatePersonException();
+        if (!target.equals(editedPersonRegister) && contains(editedPersonRegister)) {
+            throw new DuplicatePersonRegisterException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedPersonRegister);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent personRegister from the list.
+     * The personRegister must exist in the list.
      */
     public void remove(PersonRegister toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new PersonRegisterNotFoundException();
         }
     }
 
@@ -85,16 +84,16 @@ public class UniquePersonRegisterList implements Iterable<PersonRegister> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code personRegisters}.
+     * {@code personRegisters} must not contain duplicate personRegisters.
      */
-    public void setPersons(List<PersonRegister> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+    public void setPersonRegisters(List<PersonRegister> personRegisters) {
+        requireAllNonNull(personRegisters);
+        if (!personRegistersAreUnique(personRegisters)) {
+            throw new DuplicatePersonRegisterException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(personRegisters);
     }
 
     /**
@@ -122,12 +121,12 @@ public class UniquePersonRegisterList implements Iterable<PersonRegister> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code personRegisters} contains only unique personRegisters.
      */
-    private boolean personsAreUnique(List<PersonRegister> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).equals(persons.get(j))) {
+    private boolean personRegistersAreUnique(List<PersonRegister> personRegisters) {
+        for (int i = 0; i < personRegisters.size() - 1; i++) {
+            for (int j = i + 1; j < personRegisters.size(); j++) {
+                if (personRegisters.get(i).equals(personRegisters.get(j))) {
                     return false;
                 }
             }

@@ -11,6 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+<<<<<<< HEAD
+=======
+import seedu.address.model.person.Person;
+>>>>>>> ccc7c0a5cfe22e23f1b6ac6938de9ee2394ab516
 import seedu.address.model.person.PersonRegister;
 
 /**
