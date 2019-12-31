@@ -9,9 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.PersonRegisters;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonRegister;
 
 /**
@@ -43,19 +42,19 @@ class JsonSerializablePersonRegister {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code PersonRegisters} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType(AddressBook addressBook) throws IllegalValueException {
-        for (JsonAdaptedPersonRegister jsonAdaptedPersonRegister : personRegisters) {
+    public PersonRegisters toModelType(PersonRegisters personRegisters) throws IllegalValueException {
+        for (JsonAdaptedPersonRegister jsonAdaptedPersonRegister : this.personRegisters) {
             PersonRegister personRegister = jsonAdaptedPersonRegister.toModelType();
-            if (addressBook.hasPersonRegister(personRegister)) {
+            if (personRegisters.hasPersonRegister(personRegister)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON_REGISTER);
             }
-            addressBook.addPersonRegister(personRegister);
+            personRegisters.addPersonRegister(personRegister);
         }
-        return addressBook;
+        return personRegisters;
     }
 
 }

@@ -19,26 +19,26 @@ import seedu.address.model.person.PersonRegister;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final PersonRegisters personRegisters;
     private final UserPrefs userPrefs;
     private final FilteredList<PersonRegister> filteredPersonRegisters;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given personRegisters and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPersonRegisters addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.personRegisters = new PersonRegisters(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersonRegisters = new FilteredList<>(this.addressBook.getPersonRegisterList());
+        filteredPersonRegisters = new FilteredList<>(this.personRegisters.getPersonRegisterList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new PersonRegisters(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,32 +76,32 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== PersonRegisters ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setPersonRegisters(ReadOnlyPersonRegisters personRegisters) {
+        this.personRegisters.resetData(personRegisters);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyPersonRegisters getPersonRegisters() {
+        return personRegisters;
     }
 
     @Override
     public boolean hasPersonRegister(PersonRegister person) {
         requireNonNull(person);
-        return addressBook.hasPersonRegister(person);
+        return personRegisters.hasPersonRegister(person);
     }
 
     @Override
     public void deletePersonRegister(PersonRegister target) {
-        addressBook.removePerson(target);
+        personRegisters.removePerson(target);
     }
 
     @Override
     public void addPersonRegister(PersonRegister person) {
-        addressBook.addPerson(person);
+        personRegisters.addPersonRegister(person);
         updateFilteredPersonRegisterList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPersonRegister(PersonRegister target, PersonRegister editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        personRegisters.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return personRegisters.equals(other.personRegisters)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersonRegisters.equals(other.filteredPersonRegisters);
     }
