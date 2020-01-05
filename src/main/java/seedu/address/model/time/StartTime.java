@@ -17,8 +17,8 @@ public class StartTime {
     /**
      * Initializes startTime variable to local system time.
      */
-    public void start() {
-        this.startTime = Instant.now();
+    public StartTime(Instant instant) {
+        this.startTime = instant;
     }
 
     @Override
