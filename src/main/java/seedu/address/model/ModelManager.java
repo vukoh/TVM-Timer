@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.PersonRegister;
+import seedu.address.model.person.PersonResult;
+import seedu.address.model.person.PersonStart;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +21,32 @@ import seedu.address.model.person.PersonRegister;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final PersonRegisters personRegisters;
+    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<PersonRegister> filteredPersonRegisters;
+    private final FilteredList<PersonStart> filteredPersonStarts;
+    private final FilteredList<PersonResult> filteredPersonResults;
+
 
     /**
      * Initializes a ModelManager with the given personRegisters and userPrefs.
      */
-    public ModelManager(ReadOnlyPersonRegisters addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.personRegisters = new PersonRegisters(addressBook);
+        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersonRegisters = new FilteredList<>(this.personRegisters.getPersonRegisterList());
+        filteredPersonRegisters = new FilteredList<>(this.addressBook.getPersonRegisterList());
+        filteredPersonStarts = new FilteredList<>(this.addressBook.getPersonStartList());
+        filteredPersonResults = new FilteredList<>(this.addressBook.getPersonResultList());
+
     }
 
     public ModelManager() {
-        this(new PersonRegisters(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,48 +84,98 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== PersonRegisters ================================================================================
+    //=========== AddressBook ================================================================================
 
     @Override
-    public void setPersonRegisters(ReadOnlyPersonRegisters personRegisters) {
-        this.personRegisters.resetData(personRegisters);
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyPersonRegisters getPersonRegisters() {
-        return personRegisters;
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
     }
 
+    //=========== PersonRegister ================================================================================
+
     @Override
-    public boolean hasPersonRegister(PersonRegister person) {
-        requireNonNull(person);
-        return personRegisters.hasPersonRegister(person);
+    public boolean hasPersonRegister(PersonRegister personRegister) {
+        requireNonNull(personRegister);
+        return addressBook.hasPersonRegister(personRegister);
     }
 
     @Override
     public void deletePersonRegister(PersonRegister target) {
-        personRegisters.removePerson(target);
+        addressBook.removePersonRegister(target);
     }
 
     @Override
-    public void addPersonRegister(PersonRegister person) {
-        personRegisters.addPersonRegister(person);
-        updateFilteredPersonRegisterList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addPersonRegister(PersonRegister personRegister) {
+        addressBook.addPersonRegister(personRegister);
+        updateFilteredPersonRegisterList(PREDICATE_SHOW_ALL_PERSON_REGISTERS);
     }
 
     @Override
-    public void setPersonRegister(PersonRegister target, PersonRegister editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPersonRegister(PersonRegister target, PersonRegister editedPersonRegister) {
+        requireAllNonNull(target, editedPersonRegister);
 
-        personRegisters.setPerson(target, editedPerson);
+        addressBook.setPersonRegister(target, editedPersonRegister);
+    }
+
+    //=========== PersonStart ================================================================================
+
+    @Override
+    public boolean hasPersonStart(PersonStart personStart) {
+        requireNonNull(personStart);
+        return addressBook.hasPersonStart(personStart);
+    }
+
+    @Override
+    public void deletePersonStart(PersonStart target) {
+        addressBook.removePersonStart(target);
+    }
+
+    @Override
+    public void addPersonStart(PersonStart personStart) {
+        addressBook.addPersonStart(personStart);
+        updateFilteredPersonStartList(PREDICATE_SHOW_ALL_PERSON_STARTS);
+    }
+
+    @Override
+    public void setPersonStart(PersonStart target, PersonStart editedPersonStart) {
+        requireAllNonNull(target, editedPersonStart);
+
+        addressBook.setPersonStart(target, editedPersonStart);
+    }
+
+    //=========== PersonRegister ================================================================================
+
+    @Override
+    public boolean hasPersonResult(PersonResult personResult) {
+        requireNonNull(personResult);
+        return addressBook.hasPersonResult(personResult);
+    }
+
+    @Override
+    public void deletePersonResult(PersonResult target) {
+        addressBook.removePersonResult(target);
+    }
+
+    @Override
+    public void addPersonResult(PersonResult personResult) {
+        addressBook.addPersonResult(personResult);
+        updateFilteredPersonResultList(PREDICATE_SHOW_ALL_PERSON_RESULTS);
+    }
+
+    @Override
+    public void setPersonResult(PersonResult target, PersonResult editedPersonResult) {
+        requireAllNonNull(target, editedPersonResult);
+
+        addressBook.setPersonResult(target, editedPersonResult);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
     @Override
     public ObservableList<PersonRegister> getFilteredPersonRegisterList() {
         return filteredPersonRegisters;
@@ -127,6 +185,28 @@ public class ModelManager implements Model {
     public void updateFilteredPersonRegisterList(Predicate<PersonRegister> predicate) {
         requireNonNull(predicate);
         filteredPersonRegisters.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<PersonStart> getFilteredPersonStartList() {
+        return filteredPersonStarts;
+    }
+
+    @Override
+    public void updateFilteredPersonStartList(Predicate<PersonStart> predicate) {
+        requireNonNull(predicate);
+        filteredPersonStarts.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<PersonResult> getFilteredPersonResultList() {
+        return filteredPersonResults;
+    }
+
+    @Override
+    public void updateFilteredPersonResultList(Predicate<PersonResult> predicate) {
+        requireNonNull(predicate);
+        filteredPersonResults.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +223,11 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return personRegisters.equals(other.personRegisters)
+        return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersonRegisters.equals(other.filteredPersonRegisters);
+                && filteredPersonRegisters.equals(other.filteredPersonRegisters)
+                && filteredPersonStarts.equals(other.filteredPersonStarts)
+                && filteredPersonResults.equals(other.filteredPersonResults);
     }
 
 }

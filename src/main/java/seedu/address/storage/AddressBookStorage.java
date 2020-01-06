@@ -7,6 +7,9 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.PersonRegisters;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPersonRegisters;
+import seedu.address.model.ReadOnlyPersonResults;
+import seedu.address.model.ReadOnlyPersonStarts;
 
 /**
  * Represents a storage for {@link PersonRegisters}.
@@ -17,6 +20,8 @@ public interface AddressBookStorage {
      * Returns the file path of the data file.
      */
     Path getPersonRegisterFilePath();
+    Path getPersonStartFilePath();
+    Path getPersonResultFilePath();
 
     /**
      * Returns PersonRegisters data as a {@link ReadOnlyAddressBook}.
@@ -24,12 +29,20 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyPersonRegisters> readPersonRegisters() throws DataConversionException, IOException;
 
-    /**
-     * @see #getAddressBookFilePath()
-     */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyPersonRegisters> readPersonRegisters(Path personRegisterFilePath) throws DataConversionException,
+            IOException;
+
+    Optional<ReadOnlyPersonStarts> readPersonStarts() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyPersonStarts> readPersonStarts(Path personStartFilePath) throws DataConversionException,
+            IOException;
+
+    Optional<ReadOnlyPersonResults> readPersonResults() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyPersonResults> readPersonResults(Path personResultFilePath) throws DataConversionException,
+            IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
@@ -41,6 +54,7 @@ public interface AddressBookStorage {
     /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, Path personRegisterFilePath, Path personStartFilePath,
+                         Path personResultFilePath) throws IOException;
 
 }
