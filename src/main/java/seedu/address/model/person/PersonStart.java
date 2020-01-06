@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,15 +18,16 @@ import seedu.address.model.time.StartTime;
 public class PersonStart {
 
     private final BibNumber bibNumber;
-    private final StartTime startTime = new StartTime();
+    private final StartTime startTime;
     private boolean verified = false;
 
     /**
      * Every field must be present and not null.
      */
-    public PersonStart(BibNumber bibNumber) {
+    public PersonStart(BibNumber bibNumber, Instant startTime) {
         requireAllNonNull(bibNumber);
         this.bibNumber = bibNumber;
+        this.startTime = new StartTime(startTime);
     }
 
     public BibNumber getBibNumber() {

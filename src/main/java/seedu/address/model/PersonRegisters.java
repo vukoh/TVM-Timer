@@ -12,7 +12,7 @@ import seedu.address.model.person.UniquePersonRegisterList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class PersonRegisters implements ReadOnlyPersonRegisters {
 
     private final UniquePersonRegisterList personRegisters;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         personRegisters = new UniquePersonRegisterList();
     }
 
-    public AddressBook() {}
+    public PersonRegisters() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an PersonRegisters using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public PersonRegisters(ReadOnlyPersonRegisters toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -44,13 +44,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersonRegisters(List<PersonRegister> persons) {
-        this.personRegisters.setPersons(persons);
+        this.personRegisters.setPersonRegisters(persons);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code PersonRegisters} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyPersonRegisters newData) {
         requireNonNull(newData);
 
         setPersonRegisters(newData.getPersonRegisterList());
@@ -70,7 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(PersonRegister p) {
+    public void addPersonRegister(PersonRegister p) {
         personRegisters.add(p);
     }
 
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code PersonRegisters}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(PersonRegister key) {
@@ -109,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && personRegisters.equals(((AddressBook) other).personRegisters));
+                || (other instanceof PersonRegisters // instanceof handles nulls
+                && personRegisters.equals(((PersonRegisters) other).personRegisters));
     }
 
     @Override

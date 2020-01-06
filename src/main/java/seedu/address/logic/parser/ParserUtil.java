@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -126,6 +127,18 @@ public class ParserUtil {
             default:
                 throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses {@code Collection<String> bibNumbers} into an {@code ArrayList<BibNumber>}.
+     */
+    public static ArrayList<BibNumber> parseBibNumbers(Collection<String> bibNumbers) throws ParseException {
+        requireNonNull(bibNumbers);
+        final ArrayList<BibNumber> bibNumberList = new ArrayList<>();
+        for (String bibNumber : bibNumbers) {
+            bibNumberList.add(parseBibNumber(bibNumber));
+        }
+        return bibNumberList;
     }
 
     /**
