@@ -33,13 +33,9 @@ public class FinishCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-//        requireNonNull(model);
-//
-//        if (model.hasPerson(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
-//
-//        model.addPerson(toAdd);
+
+        //TODO Add EndTime toAdd into the EndTimeList
+
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
