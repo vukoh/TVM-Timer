@@ -15,13 +15,13 @@ import seedu.address.model.person.PersonStart;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<PersonRegister> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     Predicate<PersonRegister> PREDICATE_SHOW_ALL_PERSON_REGISTERS = unused -> true;
 
-    Predicate<PersonRegister> PREDICATE_SHOW_ALL_PERSON_STARTS = unused -> true;
+    Predicate<PersonStart> PREDICATE_SHOW_ALL_PERSON_STARTS = unused -> true;
 
-    Predicate<PersonRegister> PREDICATE_SHOW_ALL_PERSON_RESULTS = unused -> true;
+    Predicate<PersonResult> PREDICATE_SHOW_ALL_PERSON_RESULTS = unused -> true;
 
     // General stuff
 
@@ -72,9 +72,6 @@ public interface Model {
      */
     //void setPersonRegisters(ReadOnlyPersonRegisters addressBook);
 
-    /** Returns the PersonRegisters */
-    ReadOnlyPersonRegisters getPersonRegisters();
-
     /**
      * Returns true if a personRegister with the same identity as {@code personRegister} exists in the address book.
      */
@@ -116,9 +113,6 @@ public interface Model {
      */
     //void setPersonStarts(ReadOnlyPersonStarts addressBook);
 
-    /** Returns the PersonRegisters */
-    ReadOnlyPersonStarts getPersonStarts();
-
     /**
      * Returns true if a personStart with the same identity as {@code personStart} exists in the address book.
      */
@@ -159,9 +153,6 @@ public interface Model {
      * Replaces address book data with the data in {@code addressBook}.
      */
     //void setPersonResults(ReadOnlyPersonResults addressBook);
-
-    /** Returns the PersonResults */
-    ReadOnlyPersonResults getPersonResults();
 
     /**
      * Returns true if a personResult with the same identity as {@code personResult} exists in the address book.
