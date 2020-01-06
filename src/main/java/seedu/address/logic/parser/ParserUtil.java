@@ -10,10 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.BibNumber;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.team.TeamNumber;
 
@@ -77,9 +74,24 @@ public class ParserUtil {
         requireNonNull(bibNumber);
         String trimmedBibNumber = bibNumber.trim();
         if (!BibNumber.isValidBibNumber(trimmedBibNumber)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+            throw new ParseException(BibNumber.MESSAGE_CONSTRAINTS);
         }
         return new BibNumber(trimmedBibNumber);
+    }
+
+    /**
+     * Parses a {@code String index} into a {@code EndTimeListIndex}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code index} is invalid.
+     */
+    public static EndTimeListIndex parseEndTimeListIndex(String index) throws ParseException {
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+        if (!EndTimeListIndex.isValidIndex(trimmedIndex)) {
+            throw new ParseException(EndTimeListIndex.MESSAGE_CONSTRAINTS);
+        }
+        return new EndTimeListIndex(trimmedIndex);
     }
 
     /**

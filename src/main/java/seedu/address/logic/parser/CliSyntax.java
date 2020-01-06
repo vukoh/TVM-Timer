@@ -14,5 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_BIB_NUMBER = new Prefix("b/");
     public static final Prefix PREFIX_TEAM_NUMBER = new Prefix("t/");
     public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
 }
