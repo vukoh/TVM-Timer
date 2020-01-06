@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.PersonRegister;
 
 /**
@@ -41,8 +42,9 @@ public class PersonRegisterCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        bibNumber.setText(person.getBibNumber().bibNumber);
-        category.setText(person.getCategory().toString());
+        bibNumber.setText("Bib Number: " + person.getBibNumber().bibNumber);
+        teamNumber.setText("Team Number: " + person.getTeamNumber().teamNumber);
+        category.setText("Category: " + person.getCategory().toString());
     }
 
     @Override

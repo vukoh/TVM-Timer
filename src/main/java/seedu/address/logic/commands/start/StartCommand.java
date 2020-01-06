@@ -30,7 +30,7 @@ public class StartCommand extends Command {
             + PREFIX_BIB_NUMBER + "120"
             + PREFIX_BIB_NUMBER + "16";
 
-    public static final String MESSAGE_START_SUCCESS = "Timer for the racers specified has successfully been" +
+    public static final String MESSAGE_START_SUCCESS = "Timer for the racers specified has successfully been " +
             "started!";
     public static final String MESSAGE_NO_BIB_NUMBER = "At least one bib number must be specified.";
     public static final String MESSAGE_RACER_NOT_FOUND = "One of the bib number specified has yet to be registered!";
@@ -59,6 +59,7 @@ public class StartCommand extends Command {
             PersonStart personStart = new PersonStart(bibNumber);
 
             //TODO Add personStart to system storage.
+            model.addPersonStart(personStart);
         }
 
         return new GlobalCommandResult(MESSAGE_START_SUCCESS);
