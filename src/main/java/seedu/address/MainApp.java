@@ -54,8 +54,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getPersonRegisterFilePath(),
-                userPrefs.getPersonStartFilePath(), userPrefs.getPersonResultFilePath,
-                userPrefs.getEndTimeListFilePath());
+                userPrefs.getPersonStartFilePath(), userPrefs.getPersonResultFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -73,48 +72,71 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample PersonRegisters");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty PersonRegisters");
-            initialData = new PersonRegisters();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty PersonRegisters");
-            initialData = new PersonRegisters();
-        }
+
+        AddressBook initialData = new AddressBook();
+        initialData = initModelManagerPersonRegisterHelper(storage, initialData);
+        initialData = initModelManagerPersonStartHelper(storage, initialData);
+        initialData = initModelManagerPersonResultHelper(storage, initialData);
 
         return new ModelManager(initialData, userPrefs);
     }
 
     //Change naming
-    private PersonRegisters initModelManagerPersonRegisterHelper(Storage storage, PersonRegisters initialData) {
-        Optional<ReadOnlyStudyBuddyProFlashcards> addressBookPersonRegistersOptional;
+    private AddressBook initModelManagerPersonRegisterHelper(Storage storage, AddressBook initialData) {
+        Optional<ReadOnlyPersonRegisters> addressBookPersonRegistersOptional;
         try {
-            addressBookPersonRegistersOptional = storage.readAddressBookPersonRegisters();
+            addressBookPersonRegistersOptional = storage.readPersonRegisters();
             if (addressBookPersonRegistersOptional.isEmpty()) {
-                logger.info("Flashcards data file not found. Will be starting with sample flashcards");
-                initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
-                initialData.addAllTags(Arrays.asList(SampleDataUtil.getSampleFlashcardTags()));
+                logger.info("PersonRegisters data file not found. Will be starting with empty file");
             } else {
-                initialData.setFlashcards(studyBuddyProFlashcardsOptional.get().getFlashcardList());
-                initialData.addAllTags(studyBuddyProFlashcardsOptional.get().getTagList());
+                initialData.setPersonRegisters(addressBookPersonRegistersOptional.get().getPersonRegisterList());
             }
-        } catch (FlashcardDataConversionException e) {
-            logger.warning("Flashcards data file not in the correct format. Will be starting with sample "
-                    + "flashcards and continue checking for notes and cheatsheet data files");
-            initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
-            initialData.addAllTags(Arrays.asList(SampleDataUtil.getSampleFlashcardTags()));
+        } catch (DataConversionException e) {
+            logger.warning("PersonRegister data file not in the correct format. Will be starting with empty "
+                    + "file and continue checking for PersonStart and PersonResult data files");
         } catch (IOException e) {
-            logger.warning("Problem while reading from flashcard data file. Will be starting with sample "
-                    + "flashcards and continue checking for notes and cheatsheet data files");
-            initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
-            initialData.addAllTags(Arrays.asList(SampleDataUtil.getSampleFlashcardTags()));
+            logger.warning("Problem while reading from PersonRegister data file. Will be starting with empty "
+                    + "file and continue checking for PersonStart and PersonResult data files");
+        } finally {
+            return initialData;
+        }
+    }
+
+    private AddressBook initModelManagerPersonStartHelper(Storage storage, AddressBook initialData) {
+        Optional<ReadOnlyPersonStarts> addressBookPersonStartsOptional;
+        try {
+            addressBookPersonStartsOptional = storage.readPersonStarts();
+            if (addressBookPersonStartsOptional.isEmpty()) {
+                logger.info("PersonStarts data file not found. Will be starting with empty file");
+            } else {
+                initialData.setPersonStarts(addressBookPersonStartsOptional.get().getPersonStartList());
+            }
+        } catch (DataConversionException e) {
+            logger.warning("PersonStart data file not in the correct format. Will be starting with empty "
+                    + "file and continue checking for PersonResult data file");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from PersonStart data file. Will be starting with empty "
+                    + "file and continue checking for PersonResult data file");
+        } finally {
+            return initialData;
+        }
+    }
+
+    private AddressBook initModelManagerPersonResultHelper(Storage storage, AddressBook initialData) {
+        Optional<ReadOnlyPersonResults> addressBookPersonResultsOptional;
+        try {
+            addressBookPersonResultsOptional = storage.readPersonResults();
+            if (addressBookPersonResultsOptional.isEmpty()) {
+                logger.info("PersonResults data file not found. Will be starting with empty file");
+            } else {
+                initialData.setPersonResults(addressBookPersonResultsOptional.get().getPersonResultList());
+            }
+        } catch (DataConversionException e) {
+            logger.warning("PersonResults data file not in the correct format. Will be starting with empty "
+                    + "file");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from PersonResult data file. Will be starting with empty "
+                    + "file");
         } finally {
             return initialData;
         }
