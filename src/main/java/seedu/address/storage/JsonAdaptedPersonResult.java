@@ -104,7 +104,7 @@ class JsonAdaptedPersonResult {
             throw new IllegalValueException(e.getMessage());
         }
 
-        
+
 
         return new PersonResult(modelName, modelBibNumber, modelTeamNumber, modelCategory, modelStartTime,
                 modelEndTime);

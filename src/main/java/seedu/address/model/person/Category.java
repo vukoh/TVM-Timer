@@ -25,21 +25,35 @@ public enum Category {
         OPEN_WOMEN.numberCode = 4;
     }
 
-    public static Category getCategoryFromString(String stringIntegerCategory) throws StringToCategoryConversionException {
-        switch (stringIntegerCategory) {
-        case "1" :
+    public static Category getCategoryFromString(String stringCategory) throws StringToCategoryConversionException {
+        switch (stringCategory) {
+        case "NUS_MEN" :
             return NUS_MEN;
-        case "2":
+        case "NUS_WOMEN":
             return NUS_WOMEN;
-        case "3":
+        case "OPEN_MEN":
             return OPEN_MEN;
-        case "4":
+        case "OPEN_WOMEN":
             return OPEN_WOMEN;
         default:
             throw new StringToCategoryConversionException();
         }
     }
 
+    public static Category getCategoryFromIntString(String stringIntCategory) throws StringToCategoryConversionException {
+        switch (stringIntCategory) {
+            case "1" :
+                return NUS_MEN;
+            case "2":
+                return NUS_WOMEN;
+            case "3":
+                return OPEN_MEN;
+            case "4":
+                return OPEN_WOMEN;
+            default:
+                throw new StringToCategoryConversionException();
+        }
+    }
 
 }
 
