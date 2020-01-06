@@ -13,50 +13,58 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.BibNumber;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.PersonRegister;
+import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.exceptions.StringToCategoryConversionException;
 import seedu.address.model.team.TeamNumber;
 
 /**
- * Jackson-friendly version of {@link PersonRegister}.
+ * Jackson-friendly version of {@link PersonResult}.
  */
-class JsonAdaptedPersonRegister {
+class JsonAdaptedPersonResult {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "PersonRegister's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "PersonResult's %s field is missing!";
 
     private final String name;
     private final String bibNumber;
     private final String teamNumber;
     private final String category;
+    private final String startTime;
+    private final String endTime;
 
     /**
-     * Constructs a {@code JsonAdaptedPersonRegister} with the given personRegister details.
+     * Constructs a {@code JsonAdaptedPersonResult} with the given personResult details.
      */
     @JsonCreator
-    public JsonAdaptedPersonRegister(@JsonProperty("name") String name, @JsonProperty("bibNumber") String bibNumber,
-                             @JsonProperty("teamNumber") String teamNumber, @JsonProperty("category") String category) {
+    public JsonAdaptedPersonResult(@JsonProperty("name") String name, @JsonProperty("bibNumber") String bibNumber,
+                                     @JsonProperty("teamNumber") String teamNumber,
+                                   @JsonProperty("category") String category,
+                                   @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime) {
         this.name = name;
         this.bibNumber = bibNumber;
         this.teamNumber = teamNumber;
         this.category = category;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
-     * Converts a given {@code PersonRegister} into this class for Jackson use.
+     * Converts a given {@code PersonResult} into this class for Jackson use.
      */
-    public JsonAdaptedPersonRegister(PersonRegister source) {
+    public JsonAdaptedPersonResult(PersonResult source) {
         name = source.getName().fullName;
         bibNumber = source.getBibNumber().bibNumber;
         teamNumber = source.getTeamNumber().teamNumber;
         category = source.getCategory().name();
+        startTime = source.getStartTime().getStartTime().toString();
+        endTime = source.getEndTime().getEndTime().toString();
     }
 
     /**
-     * Converts this Jackson-friendly adapted personRegister object into the model's {@code PersonRegister} object.
+     * Converts this Jackson-friendly adapted personResult object into the model's {@code PersonResult} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted personRegister.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted personResult.
      */
-    public PersonRegister toModelType() throws IllegalValueException {
+    public PersonResult toModelType() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -96,7 +104,10 @@ class JsonAdaptedPersonRegister {
             throw new IllegalValueException(e.getMessage());
         }
 
-        return new PersonRegister(modelName, modelBibNumber, modelTeamNumber, modelCategory);
+        
+
+        return new PersonResult(modelName, modelBibNumber, modelTeamNumber, modelCategory, modelStartTime,
+                modelEndTime);
     }
 
 }

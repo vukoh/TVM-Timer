@@ -21,7 +21,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
-    private Path filePath;
+    private Path personRegisterFilePath;
 
     public JsonAddressBookStorage(Path filePath) {
         this.filePath = filePath;
