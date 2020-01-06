@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSON_REGISTERS;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +75,7 @@ public class EditCommand extends Command {
         }
 
         model.setPersonRegister(personToEdit, editedPerson);
-        model.updateFilteredPersonRegisterList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonRegisterList(PREDICATE_SHOW_ALL_PERSON_REGISTERS);
         return new GlobalCommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 

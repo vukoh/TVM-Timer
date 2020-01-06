@@ -19,15 +19,28 @@ public class PersonStart {
 
     private final BibNumber bibNumber;
     private final StartTime startTime;
-    private boolean verified = false;
+    private boolean verified;
 
     /**
-     * Every field must be present and not null.
+     * Constructor to be used by method when creating new PersonStart objects.
      */
-    public PersonStart(BibNumber bibNumber, Instant startTime) {
+    public PersonStart(BibNumber bibNumber) {
         requireAllNonNull(bibNumber);
         this.bibNumber = bibNumber;
-        this.startTime = new StartTime(startTime);
+        this.startTime = new StartTime();
+        this.verified = false;
+    }
+
+    /**
+     * Constructor to be used for JSON conversion
+     * @param bibNumber
+     * @param startTime
+     */
+    public PersonStart(BibNumber bibNumber, StartTime startTime, boolean verified) {
+        requireAllNonNull(bibNumber);
+        this.bibNumber = bibNumber;
+        this.startTime = startTime;
+        this.verified = verified;
     }
 
     public BibNumber getBibNumber() {

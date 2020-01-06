@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonStart;
 import seedu.address.model.person.exceptions.StringToCategoryConversionException;
 import seedu.address.model.team.TeamNumber;
+import seedu.address.model.time.StartTime;
 
 /**
  * Jackson-friendly version of {@link PersonStart}.
@@ -66,8 +68,13 @@ class JsonAdaptedPersonStart {
         }
         */
         final BibNumber modelBibNumber = new BibNumber(bibNumber);
+        if (startTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartTime.class.getSimpleName()));
+        }
+        final StartTime modelStartTime = new StartTime(Instant.parse(startTime));
+        final boolean modelVerified = verified;
 
-        return new PersonRegister(modelBibNumber, modelStartTime, modelVerified);
+        return new PersonStart(modelBibNumber, modelStartTime, modelVerified);
     }
 
 }

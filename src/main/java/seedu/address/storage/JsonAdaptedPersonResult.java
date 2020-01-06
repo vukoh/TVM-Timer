@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.exceptions.StringToCategoryConversionException;
 import seedu.address.model.team.TeamNumber;
+import seedu.address.model.time.EndTime;
+import seedu.address.model.time.StartTime;
 
 /**
  * Jackson-friendly version of {@link PersonResult}.
@@ -103,6 +106,14 @@ class JsonAdaptedPersonResult {
         } catch (StringToCategoryConversionException e) {
             throw new IllegalValueException(e.getMessage());
         }
+        if (startTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartTime.class.getSimpleName()));
+        }
+        final StartTime modelStartTime = new StartTime(Instant.parse(startTime));
+        if (endTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EndTime.class.getSimpleName()));
+        }
+        final EndTime modelEndTime = new EndTime(Instant.parse(endTime));
 
 
 

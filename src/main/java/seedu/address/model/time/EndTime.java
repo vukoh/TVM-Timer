@@ -16,7 +16,11 @@ public class EndTime {
      * Initializes endTime variable to local system time.
      */
     public EndTime() {
-        endTime = Instant.now();
+        this.endTime = Instant.now();
+    }
+
+    public EndTime(Instant endTime) {
+        this.endTime = endTime;
     }
 
     public Instant getEndTime() {
