@@ -24,10 +24,10 @@ public class PersonStart {
     /**
      * Constructor to be used by method when creating new PersonStart objects.
      */
-    public PersonStart(BibNumber bibNumber) {
+    public PersonStart(BibNumber bibNumber, Instant startTime) {
         requireAllNonNull(bibNumber);
         this.bibNumber = bibNumber;
-        this.startTime = new StartTime();
+        this.startTime = new StartTime(startTime);
         this.verified = false;
     }
 
