@@ -17,7 +17,7 @@ import seedu.address.model.person.PersonRegister;
 /**
  * An Immutable PersonRegisters class that is serializable to JSON format.
  */
-@JsonRootName(value = "personregisters")
+@JsonRootName(value = "personRegisters")
 class JsonSerializablePersonRegister {
 
     public static final String MESSAGE_DUPLICATE_PERSON_REGISTER = "PersonRegister list contains duplicate " +
@@ -29,7 +29,7 @@ class JsonSerializablePersonRegister {
      * Constructs a {@code JsonSerializablePersonRegister} with the given personRegisters.
      */
     @JsonCreator
-    public JsonSerializablePersonRegister(@JsonProperty("personregisters") List<JsonAdaptedPersonRegister> personRegisters) {
+    public JsonSerializablePersonRegister(@JsonProperty("personRegisters") List<JsonAdaptedPersonRegister> personRegisters) {
         this.personRegisters.addAll(personRegisters);
     }
 
