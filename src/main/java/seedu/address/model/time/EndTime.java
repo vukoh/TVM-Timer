@@ -3,7 +3,7 @@ package seedu.address.model.time;
 import java.time.Instant;
 
 /**
- * Represents the end time of in the application (To be recorded in EndTimeList and later assigned to relevant
+ * Represents the end time of in the application (To be recorded in UniqueEndTimeList and later assigned to relevant
  * PersonResults).
  */
 public class EndTime {

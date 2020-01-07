@@ -15,6 +15,7 @@ import seedu.address.model.person.PersonEnd;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.time.EndTime;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -28,7 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<PersonStart> filteredPersonStarts;
     private final FilteredList<PersonResult> filteredPersonResults;
     private final FilteredList<PersonEnd> filteredPersonEnds;
-
+    private final FilteredList<EndTime> filteredEndTimes;
 
     /**
      * Initializes a ModelManager with the given personRegisters and userPrefs.
@@ -45,6 +46,7 @@ public class ModelManager implements Model {
         filteredPersonStarts = new FilteredList<>(this.addressBook.getPersonStartList());
         filteredPersonResults = new FilteredList<>(this.addressBook.getPersonResultList());
         filteredPersonEnds = new FilteredList<>(this.addressBook.getPersonEndList());
+        filteredEndTimes = new FilteredList<>(this.addressBook.getEndTimeList());
 
     }
 
@@ -151,7 +153,7 @@ public class ModelManager implements Model {
         addressBook.setPersonStart(target, editedPersonStart);
     }
 
-    //=========== PersonRegister ================================================================================
+    //=========== PersonResult ================================================================================
 
     @Override
     public boolean hasPersonResult(PersonResult personResult) {
@@ -203,6 +205,32 @@ public class ModelManager implements Model {
         addressBook.setPersonEnd(target, editedPersonEnd);
     }
 
+    //=========== EndTime ================================================================================
+
+    @Override
+    public boolean hasEndTime(EndTime endTime) {
+        requireNonNull(endTime);
+        return addressBook.hasEndTime(endTime);
+    }
+
+    @Override
+    public void deleteEndTime(EndTime target) {
+        addressBook.removeEndTime(target);
+    }
+
+    @Override
+    public void addEndTime(EndTime endTime) {
+        addressBook.addEndTime(endTime);
+        updateFilteredEndTimeList(PREDICATE_SHOW_ALL_END_TIMES);
+    }
+
+    @Override
+    public void setEndTime(EndTime target, EndTime editedEndTime) {
+        requireAllNonNull(target, editedEndTime);
+
+        addressBook.setEndTime(target, editedEndTime);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     @Override
@@ -250,6 +278,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<EndTime> getFilteredEndTimeList() {
+        return filteredEndTimes;
+    }
+
+    @Override
+    public void updateFilteredEndTimeList(Predicate<EndTime> predicate) {
+        requireNonNull(predicate);
+        filteredEndTimes.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -268,7 +307,8 @@ public class ModelManager implements Model {
                 && filteredPersonRegisters.equals(other.filteredPersonRegisters)
                 && filteredPersonStarts.equals(other.filteredPersonStarts)
                 && filteredPersonResults.equals(other.filteredPersonResults)
-                && filteredPersonEnds.equals(other.filteredPersonEnds);
+                && filteredPersonEnds.equals(other.filteredPersonEnds)
+                && filteredEndTimes.equals(other.filteredEndTimes);
     }
 
 }

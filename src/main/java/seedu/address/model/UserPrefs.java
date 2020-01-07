@@ -19,6 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path personStartFilePath = Paths.get("data" , "personStart.json");
     private Path personResultFilePath = Paths.get("data" , "personResult.json");
     private Path personEndFilePath = Paths.get("data" , "personEnd.json");
+    private Path endTimeFilePath = Paths.get("data", "endTime.json");
 
 
     /**
@@ -70,6 +71,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getPersonEndFilePath() {
         return personEndFilePath;
+    }
+
+    public Path getEndTimeFilePath() {
+        return endTimeFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {

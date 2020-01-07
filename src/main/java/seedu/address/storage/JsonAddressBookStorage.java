@@ -14,6 +14,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEndTimes;
 import seedu.address.model.ReadOnlyPersonEnds;
 import seedu.address.model.ReadOnlyPersonRegisters;
 import seedu.address.model.ReadOnlyPersonResults;
@@ -30,18 +31,22 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     private Path personStartFilePath;
     private Path personResultFilePath;
     private Path personEndFilePath;
+    private Path endTimeFilePath;
 
 
     public JsonAddressBookStorage(Path personRegisterFilePath, Path personStartFilePath, Path personResultFilePath,
-                                  Path personEndFilePath) {
+                                  Path personEndFilePath, Path endTimeFilePath) {
         requireNonNull(personRegisterFilePath);
         requireNonNull(personStartFilePath);
         requireNonNull(personResultFilePath);
         requireNonNull(personEndFilePath);
+        requireNonNull(endTimeFilePath);
 
         this.personRegisterFilePath = personRegisterFilePath;
         this.personStartFilePath = personStartFilePath;
+        this.personResultFilePath = personResultFilePath;
         this.personEndFilePath = personEndFilePath;
+        this.endTimeFilePath = endTimeFilePath;
     }
 
     public Path getPersonRegisterFilePath() {
@@ -58,6 +63,10 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     public Path getPersonEndFilePath() {
         return personEndFilePath;
+    }
+
+    public Path getEndTimeFilePath() {
+        return endTimeFilePath;
     }
 
     @Override
@@ -201,8 +210,44 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
+    public Optional<ReadOnlyEndTimes> readEndTimes() throws DataConversionException {
+        return readEndTimes(endTimeFilePath);
+    }
+
+    /**
+     * Similar to {@link #readAddressBook()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public Optional<ReadOnlyEndTimes> readEndTimes(Path endTimeFilePath) throws DataConversionException {
+        requireNonNull(endTimeFilePath);
+
+        Optional<JsonSerializableEndTime> jsonEndTime;
+        try {
+            jsonEndTime = JsonUtil.readJsonFile(
+                    endTimeFilePath, JsonSerializableEndTime.class);
+        } catch (DataConversionException ex) {
+            throw new DataConversionException(ex);
+        }
+        if (!jsonEndTime.isPresent()) {
+            return Optional.empty();
+        } else {
+            try {
+                AddressBook addressBookWithEndTimes = new AddressBook();
+                jsonEndTime.get().toModelType(addressBookWithEndTimes);
+                return Optional.of(addressBookWithEndTimes);
+            } catch (IllegalValueException ive) {
+                logger.info("Illegal values found in " + endTimeFilePath + ": " + ive.getMessage());
+                throw new DataConversionException(ive);
+            }
+        }
+    }
+
+    @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, personRegisterFilePath, personStartFilePath, personResultFilePath, personEndFilePath);
+        saveAddressBook(addressBook, personRegisterFilePath, personStartFilePath, personResultFilePath,
+                personEndFilePath, endTimeFilePath);
     }
 
     /**
@@ -211,24 +256,26 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path personRegisterFilePath,
-                                Path personStartFilePath, Path personResultFilePath, Path personEndFilePath) throws IOException {
+                                Path personStartFilePath, Path personResultFilePath, Path personEndFilePath,
+                                Path endTimeFilePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(personRegisterFilePath);
         requireNonNull(personStartFilePath);
         requireNonNull(personResultFilePath);
         requireNonNull(personEndFilePath);
-
+        requireNonNull(endTimeFilePath);
 
         FileUtil.createIfMissing(personRegisterFilePath);
         FileUtil.createIfMissing(personStartFilePath);
         FileUtil.createIfMissing(personResultFilePath);
         FileUtil.createIfMissing(personEndFilePath);
+        FileUtil.createIfMissing(endTimeFilePath);
 
         JsonUtil.saveJsonFile(new JsonSerializablePersonRegister(addressBook), personRegisterFilePath);
         JsonUtil.saveJsonFile(new JsonSerializablePersonStart(addressBook), personStartFilePath);
         JsonUtil.saveJsonFile(new JsonSerializablePersonResult(addressBook), personResultFilePath);
         JsonUtil.saveJsonFile(new JsonSerializablePersonEnd(addressBook), personEndFilePath);
-
+        JsonUtil.saveJsonFile(new JsonSerializableEndTime(addressBook), endTimeFilePath);
 
     }
 

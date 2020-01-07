@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEndTimes;
 import seedu.address.model.ReadOnlyPersonEnds;
 import seedu.address.model.ReadOnlyPersonRegisters;
 import seedu.address.model.ReadOnlyPersonResults;
@@ -37,6 +38,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getPersonEndFilePath();
 
     @Override
+    Path getEndTimeFilePath();
+
+    @Override
     Optional<ReadOnlyPersonRegisters> readPersonRegisters() throws DataConversionException, IOException;
 
     @Override
@@ -47,6 +51,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     Optional<ReadOnlyPersonEnds> readPersonEnds() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyEndTimes> readEndTimes() throws DataConversionException, IOException;
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;

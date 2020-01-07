@@ -54,7 +54,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getPersonRegisterFilePath(),
-                userPrefs.getPersonStartFilePath(), userPrefs.getPersonResultFilePath(), userPrefs.getPersonEndFilePath());
+                userPrefs.getPersonStartFilePath(), userPrefs.getPersonResultFilePath(),
+                userPrefs.getPersonEndFilePath(), userPrefs.getEndTimeFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -78,6 +79,7 @@ public class MainApp extends Application {
         initialData = initModelManagerPersonStartHelper(storage, initialData);
         initialData = initModelManagerPersonResultHelper(storage, initialData);
         initialData = initModelManagerPersonEndHelper(storage, initialData);
+        initialData = initModelManagerEndTimeHelper(storage, initialData);
 
         return new ModelManager(initialData, userPrefs);
     }
@@ -94,10 +96,10 @@ public class MainApp extends Application {
             }
         } catch (DataConversionException e) {
             logger.warning("PersonRegister data file not in the correct format. Will be starting with empty "
-                    + "file and continue checking for PersonStart, PersonResult and PersonEnd data files");
+                    + "file and continue checking for PersonStart, PersonResult, PersonEnd and EndTime data files");
         } catch (IOException e) {
             logger.warning("Problem while reading from PersonRegister data file. Will be starting with empty "
-                    + "file and continue checking for PersonStart, PersonResult and PersonEnd data files");
+                    + "file and continue checking for PersonStart, PersonResult, PersonEnd and EndTime data files");
         } finally {
             return initialData;
         }
@@ -114,10 +116,10 @@ public class MainApp extends Application {
             }
         } catch (DataConversionException e) {
             logger.warning("PersonStart data file not in the correct format. Will be starting with empty "
-                    + "file and continue checking for PersonResult and PersonEnd data file");
+                    + "file and continue checking for PersonResult, PersonEnd and EndTime data file");
         } catch (IOException e) {
             logger.warning("Problem while reading from PersonStart data file. Will be starting with empty "
-                    + "file and continue checking for PersonResult and PersonEnd data file");
+                    + "file and continue checking for PersonResult, PersonEnd and EndTime data file");
         } finally {
             return initialData;
         }
@@ -134,10 +136,10 @@ public class MainApp extends Application {
             }
         } catch (DataConversionException e) {
             logger.warning("PersonResults data file not in the correct format. Will be starting with empty "
-                    + "file and continue checking for PersonEnd data file");
+                    + "file and continue checking for PersonEnd and EndTime data file");
         } catch (IOException e) {
             logger.warning("Problem while reading from PersonResult data file. Will be starting with empty "
-                    + "file and continue checking for PersonEnd data file");
+                    + "file and continue checking for PersonEnd and EndTime data file");
         } finally {
             return initialData;
         }
@@ -157,6 +159,26 @@ public class MainApp extends Application {
                     + "file");
         } catch (IOException e) {
             logger.warning("Problem while reading from PersonEnd data file. Will be starting with empty "
+                    + "file");
+        } finally {
+            return initialData;
+        }
+    }
+
+    private AddressBook initModelManagerEndTimeHelper(Storage storage, AddressBook initialData) {
+        Optional<ReadOnlyEndTimes> addressBookEndTimesOptional;
+        try {
+            addressBookEndTimesOptional = storage.readEndTimes();
+            if (addressBookEndTimesOptional.isEmpty()) {
+                logger.info("EndTimes data file not found. Will be starting with empty file");
+            } else {
+                initialData.setEndTimes(addressBookEndTimesOptional.get().getEndTimeList());
+            }
+        } catch (DataConversionException e) {
+            logger.warning("EndTimes data file not in the correct format. Will be starting with empty "
+                    + "file");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from EndTime data file. Will be starting with empty "
                     + "file");
         } finally {
             return initialData;

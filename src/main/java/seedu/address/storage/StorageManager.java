@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEndTimes;
 import seedu.address.model.ReadOnlyPersonEnds;
 import seedu.address.model.ReadOnlyPersonRegisters;
 import seedu.address.model.ReadOnlyPersonResults;
@@ -71,6 +72,11 @@ public class StorageManager implements Storage {
         return addressBookStorage.getPersonEndFilePath();
     }
 
+    @Override
+    public Path getEndTimeFilePath() {
+        return addressBookStorage.getEndTimeFilePath();
+    }
+
 
     // ================ Read methods ==============================
 
@@ -121,22 +127,35 @@ public class StorageManager implements Storage {
         return addressBookStorage.readPersonEnds(personEndFilePath);
     }
 
+    @Override
+    public Optional<ReadOnlyEndTimes> readEndTimes() throws DataConversionException, IOException {
+        return addressBookStorage.readEndTimes(addressBookStorage.getEndTimeFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyEndTimes> readEndTimes(Path endTimeFilePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + endTimeFilePath);
+        return addressBookStorage.readEndTimes(endTimeFilePath);
+    }
+
 
     // ================ Save methods ==============================
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getPersonRegisterFilePath(), getPersonStartFilePath(),
-                getPersonResultFilePath(), getPersonEndFilePath());
+                getPersonResultFilePath(), getPersonEndFilePath(), getEndTimeFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path personRegisterFilePath,
-                                Path personStartFilePath, Path personResultFilePath, Path personEndFilePath) throws IOException {
+                                Path personStartFilePath, Path personResultFilePath, Path personEndFilePath,
+                                Path endTimeFilePath) throws IOException {
         logger.fine("Attempting to write to data file: " + personRegisterFilePath + ", " + personStartFilePath + ", "
-                + personResultFilePath + ", " + personEndFilePath);
+                + personResultFilePath + ", " + personEndFilePath + ", " + endTimeFilePath);
         addressBookStorage.saveAddressBook(addressBook, personRegisterFilePath, personStartFilePath,
-                personResultFilePath, personEndFilePath);
+                personResultFilePath, personEndFilePath, endTimeFilePath);
     }
 
 }
