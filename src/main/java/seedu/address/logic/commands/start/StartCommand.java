@@ -55,8 +55,10 @@ public class StartCommand extends Command {
             throw new CommandException(MESSAGE_NO_BIB_NUMBER);
         }
 
+        Instant instant = Instant.now();
+
         for (BibNumber bibNumber : bibNumbers) {
-            PersonStart personStart = new PersonStart(bibNumber);
+            PersonStart personStart = new PersonStart(bibNumber, instant);
             
             if (!model.hasPersonStart(personStart)) {
                 model.addPersonStart(personStart);

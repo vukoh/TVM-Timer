@@ -11,9 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.PersonEnd;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.time.EndTime;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,7 +28,8 @@ public class ModelManager implements Model {
     private final FilteredList<PersonRegister> filteredPersonRegisters;
     private final FilteredList<PersonStart> filteredPersonStarts;
     private final FilteredList<PersonResult> filteredPersonResults;
-
+    private final FilteredList<PersonEnd> filteredPersonEnds;
+    private final FilteredList<EndTime> filteredEndTimes;
 
     /**
      * Initializes a ModelManager with the given personRegisters and userPrefs.
@@ -42,6 +45,8 @@ public class ModelManager implements Model {
         filteredPersonRegisters = new FilteredList<>(this.addressBook.getPersonRegisterList());
         filteredPersonStarts = new FilteredList<>(this.addressBook.getPersonStartList());
         filteredPersonResults = new FilteredList<>(this.addressBook.getPersonResultList());
+        filteredPersonEnds = new FilteredList<>(this.addressBook.getPersonEndList());
+        filteredEndTimes = new FilteredList<>(this.addressBook.getEndTimeList());
 
     }
 
@@ -148,7 +153,7 @@ public class ModelManager implements Model {
         addressBook.setPersonStart(target, editedPersonStart);
     }
 
-    //=========== PersonRegister ================================================================================
+    //=========== PersonResult ================================================================================
 
     @Override
     public boolean hasPersonResult(PersonResult personResult) {
@@ -172,6 +177,58 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPersonResult);
 
         addressBook.setPersonResult(target, editedPersonResult);
+    }
+
+    //=========== PersonEnd ================================================================================
+
+    @Override
+    public boolean hasPersonEnd(PersonEnd personEnd) {
+        requireNonNull(personEnd);
+        return addressBook.hasPersonEnd(personEnd);
+    }
+
+    @Override
+    public void deletePersonEnd(PersonEnd target) {
+        addressBook.removePersonEnd(target);
+    }
+
+    @Override
+    public void addPersonEnd(PersonEnd personEnd) {
+        addressBook.addPersonEnd(personEnd);
+        updateFilteredPersonEndList(PREDICATE_SHOW_ALL_PERSON_ENDS);
+    }
+
+    @Override
+    public void setPersonEnd(PersonEnd target, PersonEnd editedPersonEnd) {
+        requireAllNonNull(target, editedPersonEnd);
+
+        addressBook.setPersonEnd(target, editedPersonEnd);
+    }
+
+    //=========== EndTime ================================================================================
+
+    @Override
+    public boolean hasEndTime(EndTime endTime) {
+        requireNonNull(endTime);
+        return addressBook.hasEndTime(endTime);
+    }
+
+    @Override
+    public void deleteEndTime(EndTime target) {
+        addressBook.removeEndTime(target);
+    }
+
+    @Override
+    public void addEndTime(EndTime endTime) {
+        addressBook.addEndTime(endTime);
+        updateFilteredEndTimeList(PREDICATE_SHOW_ALL_END_TIMES);
+    }
+
+    @Override
+    public void setEndTime(EndTime target, EndTime editedEndTime) {
+        requireAllNonNull(target, editedEndTime);
+
+        addressBook.setEndTime(target, editedEndTime);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -210,6 +267,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<PersonEnd> getFilteredPersonEndList() {
+        return filteredPersonEnds;
+    }
+
+    @Override
+    public void updateFilteredPersonEndList(Predicate<PersonEnd> predicate) {
+        requireNonNull(predicate);
+        filteredPersonEnds.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<EndTime> getFilteredEndTimeList() {
+        return filteredEndTimes;
+    }
+
+    @Override
+    public void updateFilteredEndTimeList(Predicate<EndTime> predicate) {
+        requireNonNull(predicate);
+        filteredEndTimes.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -227,7 +306,9 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersonRegisters.equals(other.filteredPersonRegisters)
                 && filteredPersonStarts.equals(other.filteredPersonStarts)
-                && filteredPersonResults.equals(other.filteredPersonResults);
+                && filteredPersonResults.equals(other.filteredPersonResults)
+                && filteredPersonEnds.equals(other.filteredPersonEnds)
+                && filteredEndTimes.equals(other.filteredEndTimes);
     }
 
 }

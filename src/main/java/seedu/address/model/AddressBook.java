@@ -1,13 +1,17 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.PersonEnd;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.person.UniquePersonEndList;
 import seedu.address.model.person.UniquePersonRegisterList;
 import seedu.address.model.person.UniquePersonResultList;
 import seedu.address.model.person.UniquePersonStartList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.time.EndTime;
+import seedu.address.model.time.UniqueEndTimeList;
 
 
 import java.util.ArrayList;
@@ -30,6 +34,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonResultList personResults;
 
+    private final UniquePersonEndList personEnds;
+
+    private final UniqueEndTimeList endTimes;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -43,6 +51,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         personStarts = new UniquePersonStartList();
 
         personResults = new UniquePersonResultList();
+
+        personEnds = new UniquePersonEndList();
+
+        endTimes = new UniqueEndTimeList();
     }
 
     public AddressBook() {}
@@ -61,9 +73,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyPersonRegisters personRegistersToBeCopied,
                          ReadOnlyPersonStarts personStartsToBeCopied,
-                         ReadOnlyPersonResults personResultsToBeCopied) {
+                         ReadOnlyPersonResults personResultsToBeCopied, ReadOnlyPersonEnds personEndsToBeCopied,
+                       ReadOnlyEndTimes endTimesToBeCopied) {
         this();
-        resetData(personRegistersToBeCopied, personStartsToBeCopied, personResultsToBeCopied);
+        resetData(personRegistersToBeCopied, personStartsToBeCopied, personResultsToBeCopied, personEndsToBeCopied,
+                endTimesToBeCopied);
     }
 
     /**
@@ -75,6 +89,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersonStarts(newData.getPersonStartList());
         setPersonRegisters(newData.getPersonRegisterList());
         setPersonResults(newData.getPersonResultList());
+        setPersonEnds(newData.getPersonEndList());
+        setEndTimes(newData.getEndTimeList());
     }
 
     /**
@@ -83,14 +99,19 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyPersonRegisters newPersonRegisters,
                           ReadOnlyPersonStarts newPersonStarts,
-                          ReadOnlyPersonResults newPersonResults) {
+                          ReadOnlyPersonResults newPersonResults, ReadOnlyPersonEnds newPersonEnds,
+                          ReadOnlyEndTimes newEndTimes) {
         requireNonNull(newPersonRegisters);
         requireNonNull(newPersonStarts);
         requireNonNull(newPersonResults);
+        requireNonNull(newPersonEnds);
+        requireNonNull(newEndTimes);
 
         setPersonRegisters(newPersonRegisters.getPersonRegisterList());
         setPersonStarts(newPersonStarts.getPersonStartList());
         setPersonResults(newPersonResults.getPersonResultList());
+        setPersonEnds(newPersonEnds.getPersonEndList());
+        setEndTimes(newEndTimes.getEndTimeList());
     }
 
     @Override
@@ -99,20 +120,24 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && personRegisters.equals(((AddressBook) other).personRegisters)
                 && personStarts.equals(((AddressBook) other).personStarts)
-                && personResults.equals(((AddressBook) other).personResults));
+                && personResults.equals(((AddressBook) other).personResults)
+                && personEnds.equals(((AddressBook) other).personEnds)
+                && endTimes.equals(((AddressBook) other).endTimes));
     }
 
     @Override
     public String toString() {
         return personRegisters.asUnmodifiableObservableList().size() + " personRegisters" + "\n"
                 + personStarts.asUnmodifiableObservableList().size() + " personStarts" + "\n"
-                + personResults.asUnmodifiableObservableList().size() + " personResults";
+                + personResults.asUnmodifiableObservableList().size() + " personResults" + "\n"
+                + personEnds.asUnmodifiableObservableList().size() + " personEnds" + "\n"
+                + endTimes.asUnmodifiableObservableList().size() + " endTimes";
         // TODO: refine later
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personRegisters, personStarts, personResults);
+        return Objects.hash(personRegisters, personStarts, personResults, personEnds, endTimes);
     }
 
     //=============================PersonRegister tools====================================================
@@ -267,6 +292,108 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<PersonResult> getPersonResultList() {
         return personResults.asUnmodifiableObservableList();
+    }
+
+    //=============================PersonEnd tools====================================================
+
+    /**
+     * Adds a personEnd to the address book.
+     * The personEnd must not already exist in the address book.
+     */
+    public void addPersonEnd(PersonEnd personEnd) {
+        personEnds.add(personEnd);
+    }
+
+    /**
+     * Deletes a personEnd to the address book.
+     * The personEnd must already exist in the address book.
+     */
+    public void removePersonEnd(PersonEnd personEnd) {
+        personEnds.remove(personEnd);
+    }
+
+    /**
+     * Checks if the list of personEnds contains this personEnd
+     */
+    public boolean hasPersonEnd(PersonEnd personEnd) {
+        requireNonNull(personEnd);
+        return personEnds.contains(personEnd);
+    }
+
+    /**
+     * Replaces the contents of the personEnd list with {@code personEnds}.
+     * {@code personEnds} must not contain duplicate personEnds.
+     */
+    public void setPersonEnds(List<PersonEnd> personEnds) {
+        this.personEnds.setPersonEnds(personEnds);
+    }
+
+    /**
+     * Replaces the given personEnd {@code target} in the list with {@code editedPersonEnd}.
+     * {@code target} must exist in the address book application.
+     * The personEnd identity of {@code editedPersonEnd}
+     * must not be the same as another existing personEnd in the address book application.
+     */
+    public void setPersonEnd(PersonEnd target, PersonEnd editedPersonEnd) {
+        requireNonNull(editedPersonEnd);
+
+        personEnds.setPersonEnd(target, editedPersonEnd);
+    }
+
+    @Override
+    public ObservableList<PersonEnd> getPersonEndList() {
+        return personEnds.asUnmodifiableObservableList();
+    }
+
+    //=============================EndTime tools====================================================
+
+    /**
+     * Adds an endTime to the address book.
+     * The endTime must not already exist in the address book.
+     */
+    public void addEndTime(EndTime endTime) {
+        endTimes.add(endTime);
+    }
+
+    /**
+     * Deletes an endTime to the address book.
+     * The endTime must already exist in the address book.
+     */
+    public void removeEndTime(EndTime endTime) {
+        endTimes.remove(endTime);
+    }
+
+    /**
+     * Checks if the list of endTimes contains this endTime
+     */
+    public boolean hasEndTime(EndTime endTime) {
+        requireNonNull(endTime);
+        return endTimes.contains(endTime);
+    }
+
+    /**
+     * Replaces the contents of the endTime list with {@code endTimes}.
+     * {@code endTimes} must not contain duplicate endTimes.
+     */
+    public void setEndTimes(List<EndTime> endTimes) {
+        this.endTimes.setEndTimes(endTimes);
+    }
+
+    /**
+     * Replaces the given endTime {@code target} in the list with {@code editedEndTime}.
+     * {@code target} must exist in the address book application.
+     * The endTime identity of {@code editedEndTime}
+     * must not be the same as another existing endTime in the address book application.
+     */
+    public void setEndTime(EndTime target, EndTime editedEndTime) {
+        requireNonNull(editedEndTime);
+
+        endTimes.setEndTime(target, editedEndTime);
+    }
+
+    @Override
+    public ObservableList<EndTime> getEndTimeList() {
+        return endTimes.asUnmodifiableObservableList();
     }
 
 }

@@ -34,7 +34,7 @@ public class FinishCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        //TODO Add EndTime toAdd into the EndTimeList
+        //TODO Add EndTime toAdd into the UniqueEndTimeList
 
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

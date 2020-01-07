@@ -6,9 +6,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonEnd;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.time.EndTime;
 
 /**
  * The API of the Model component.
@@ -22,6 +24,10 @@ public interface Model {
     Predicate<PersonStart> PREDICATE_SHOW_ALL_PERSON_STARTS = unused -> true;
 
     Predicate<PersonResult> PREDICATE_SHOW_ALL_PERSON_RESULTS = unused -> true;
+
+    Predicate<PersonEnd> PREDICATE_SHOW_ALL_PERSON_ENDS = unused -> true;
+
+    Predicate<EndTime> PREDICATE_SHOW_ALL_END_TIMES = unused -> true;
 
     // General stuff
 
@@ -187,4 +193,86 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonResultList(Predicate<PersonResult> predicate);
+
+    // PersonEnd stuff
+
+    /**
+     * Replaces address book data with the data in {@code addressBook}.
+     */
+    //void setPersonEnds(ReadOnlyPersonEnds addressBook);
+
+    /**
+     * Returns true if a personEnd with the same identity as {@code personEnd} exists in the address book.
+     */
+    boolean hasPersonEnd(PersonEnd personEnd);
+
+    /**
+     * Deletes the given personEnd.
+     * The personEnd must exist in the address book.
+     */
+    void deletePersonEnd(PersonEnd target);
+
+    /**
+     * Adds the given personEnd.
+     * {@code personEnd} must not already exist in the address book.
+     */
+    void addPersonEnd(PersonEnd personEnd);
+
+    /**
+     * Replaces the given personEnd {@code target} with {@code editedPersonEnd}.
+     * {@code target} must exist in the address book.
+     * The personEnd identity of {@code editedPersonEnd} must not be the same as another existing personEnd in
+     * the address book.
+     */
+    void setPersonEnd(PersonEnd target, PersonEnd editedPersonEnd);
+
+    /** Returns an unmodifiable view of the filtered personEnd list */
+    ObservableList<PersonEnd> getFilteredPersonEndList();
+
+    /**
+     * Updates the filter of the filtered personEnd list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonEndList(Predicate<PersonEnd> predicate);
+
+    // EndTime stuff
+
+    /**
+     * Replaces address book data with the data in {@code addressBook}.
+     */
+    //void setEndTimes(ReadOnlyEndTimes addressBook);
+
+    /**
+     * Returns true if an endTime with the same identity as {@code endTime} exists in the address book.
+     */
+    boolean hasEndTime(EndTime endTime);
+
+    /**
+     * Deletes the given endTime.
+     * The endTime must exist in the address book.
+     */
+    void deleteEndTime(EndTime target);
+
+    /**
+     * Adds the given endTime.
+     * {@code endTime} must not already exist in the address book.
+     */
+    void addEndTime(EndTime endTime);
+
+    /**
+     * Replaces the given endTime {@code target} with {@code editedEndTime}.
+     * {@code target} must exist in the address book.
+     * The endTime identity of {@code editedEndTime} must not be the same as another existing endTime in
+     * the address book.
+     */
+    void setEndTime(EndTime target, EndTime editedEndTime);
+
+    /** Returns an unmodifiable view of the filtered endTime list */
+    ObservableList<EndTime> getFilteredEndTimeList();
+
+    /**
+     * Updates the filter of the filtered endTime list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEndTimeList(Predicate<EndTime> predicate);
 }
