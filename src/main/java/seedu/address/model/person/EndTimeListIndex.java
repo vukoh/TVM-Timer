@@ -6,9 +6,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EndTimeListIndex {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "BibNumbers should only contain positive, non-zero integers.";
+            "Index should only contain positive, non-zero integers.";
 
-    public static final String VALIDATION_REGEX = "^[0-9]*[1-9][0-9]*$";
+    public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
 
     public final Integer index;
 

@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.PersonEnd;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.person.UniquePersonEndList;
 import seedu.address.model.person.UniquePersonRegisterList;
 import seedu.address.model.person.UniquePersonResultList;
 import seedu.address.model.person.UniquePersonStartList;
@@ -30,6 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonResultList personResults;
 
+    private final UniquePersonEndList personEnds;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -43,6 +47,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         personStarts = new UniquePersonStartList();
 
         personResults = new UniquePersonResultList();
+
+        personEnds = new UniquePersonEndList();
     }
 
     public AddressBook() {}
@@ -61,9 +67,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyPersonRegisters personRegistersToBeCopied,
                          ReadOnlyPersonStarts personStartsToBeCopied,
-                         ReadOnlyPersonResults personResultsToBeCopied) {
+                         ReadOnlyPersonResults personResultsToBeCopied, ReadOnlyPersonEnds personEndsToBeCopied) {
         this();
-        resetData(personRegistersToBeCopied, personStartsToBeCopied, personResultsToBeCopied);
+        resetData(personRegistersToBeCopied, personStartsToBeCopied, personResultsToBeCopied, personEndsToBeCopied);
     }
 
     /**
@@ -75,6 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersonStarts(newData.getPersonStartList());
         setPersonRegisters(newData.getPersonRegisterList());
         setPersonResults(newData.getPersonResultList());
+        setPersonEnds(newData.getPersonEndList());
     }
 
     /**
@@ -83,14 +90,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyPersonRegisters newPersonRegisters,
                           ReadOnlyPersonStarts newPersonStarts,
-                          ReadOnlyPersonResults newPersonResults) {
+                          ReadOnlyPersonResults newPersonResults, ReadOnlyPersonEnds newPersonEnds) {
         requireNonNull(newPersonRegisters);
         requireNonNull(newPersonStarts);
         requireNonNull(newPersonResults);
+        requireNonNull(newPersonEnds);
 
         setPersonRegisters(newPersonRegisters.getPersonRegisterList());
         setPersonStarts(newPersonStarts.getPersonStartList());
         setPersonResults(newPersonResults.getPersonResultList());
+        setPersonEnds(newPersonEnds.getPersonEndList());
     }
 
     @Override
@@ -99,20 +108,22 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && personRegisters.equals(((AddressBook) other).personRegisters)
                 && personStarts.equals(((AddressBook) other).personStarts)
-                && personResults.equals(((AddressBook) other).personResults));
+                && personResults.equals(((AddressBook) other).personResults)
+                && personEnds.equals(((AddressBook) other).personEnds));
     }
 
     @Override
     public String toString() {
         return personRegisters.asUnmodifiableObservableList().size() + " personRegisters" + "\n"
                 + personStarts.asUnmodifiableObservableList().size() + " personStarts" + "\n"
-                + personResults.asUnmodifiableObservableList().size() + " personResults";
+                + personResults.asUnmodifiableObservableList().size() + " personResults" + "\n"
+                + personEnds.asUnmodifiableObservableList().size() + " personEnds";
         // TODO: refine later
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personRegisters, personStarts, personResults);
+        return Objects.hash(personRegisters, personStarts, personResults, personEnds);
     }
 
     //=============================PersonRegister tools====================================================
@@ -267,6 +278,57 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<PersonResult> getPersonResultList() {
         return personResults.asUnmodifiableObservableList();
+    }
+
+    //=============================PersonEnd tools====================================================
+
+    /**
+     * Adds a personEnd to the address book.
+     * The personEnd must not already exist in the address book.
+     */
+    public void addPersonEnd(PersonEnd personEnd) {
+        personEnds.add(personEnd);
+    }
+
+    /**
+     * Deletes a personEnd to the address book.
+     * The personEnd must already exist in the address book.
+     */
+    public void removePersonEnd(PersonEnd personEnd) {
+        personEnds.remove(personEnd);
+    }
+
+    /**
+     * Checks if the list of personEnds contains this personEnd
+     */
+    public boolean hasPersonEnd(PersonEnd personEnd) {
+        requireNonNull(personEnd);
+        return personEnds.contains(personEnd);
+    }
+
+    /**
+     * Replaces the contents of the personEnd list with {@code personEnds}.
+     * {@code personEnds} must not contain duplicate personEnds.
+     */
+    public void setPersonEnds(List<PersonEnd> personEnds) {
+        this.personEnds.setPersonEnds(personEnds);
+    }
+
+    /**
+     * Replaces the given personEnd {@code target} in the list with {@code editedPersonEnd}.
+     * {@code target} must exist in the address book application.
+     * The personEnd identity of {@code editedPersonEnd}
+     * must not be the same as another existing personEnd in the address book application.
+     */
+    public void setPersonEnd(PersonEnd target, PersonEnd editedPersonEnd) {
+        requireNonNull(editedPersonEnd);
+
+        personEnds.setPersonEnd(target, editedPersonEnd);
+    }
+
+    @Override
+    public ObservableList<PersonEnd> getPersonEndList() {
+        return personEnds.asUnmodifiableObservableList();
     }
 
 }
