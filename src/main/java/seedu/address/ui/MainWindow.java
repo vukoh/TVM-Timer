@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -39,8 +40,12 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private RegisterPanel registerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private Label featureMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane versatilePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -114,8 +119,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonRegisterList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        initializePanels();
+
+        versatilePanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -125,6 +131,14 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Initializes all Panels.
+     */
+    void initializePanels() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonRegisterList());
+        registerPanel = new RegisterPanel(this);
     }
 
     /**
@@ -225,22 +239,74 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void toggleModeTo (FunctionMode targetMode) {
         //To change to reflect GUI changes, if any
+        versatilePanelPlaceholder.getChildren().clear();
         switch (targetMode) {
             case REGISTER:
+                versatilePanelPlaceholder.getChildren().add(registerPanel.getRoot());
+                featureMode.setText("Register Mode");
                 System.out.println("Switched to 'Register' mode");
                 break;
             case START:
+                featureMode.setText("Start Mode");
                 System.out.println("Switched to 'Start' mode");
                 break;
             case FINISH:
+                featureMode.setText("Finish Mode");
                 System.out.println("Switched to 'Finish' mode");
                 break;
             case CALCULATE:
+                featureMode.setText("Calculate Mode");
                 System.out.println("Switched to 'Calculate' mode");
                 break;
             default:
-                //Left blank now as placeholder
+                featureMode.setText("Home");
+                versatilePanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
+    }
+
+    /**
+     * Switch to register mode.
+     */
+    @FXML
+    private void switchRegister() {
+        executeGuiCommand("switch register");
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    /**
+     * Switch to start mode.
+     */
+    @FXML
+    private void switchStart() {
+        executeGuiCommand("switch start");
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    /**
+     * Switch to finish mode.
+     */
+    @FXML
+    private void switchFinish() {
+        executeGuiCommand("switch finish");
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    /**
+     * Switch to calculate mode.
+     */
+    @FXML
+    private void switchCalculate() {
+        executeGuiCommand("switch calculate");
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    /**
+     * Switch to calculate mode.
+     */
+    @FXML
+    private void switchHome() {
+        toggleModeTo(FunctionMode.UNDEFINED);
+        resultDisplay.setFeedbackToUser("");
     }
 
     private void executeRegisterCommandHelper(RegisterCommandResult registerCommandResult) {
@@ -257,5 +323,18 @@ public class MainWindow extends UiPart<Stage> {
 
     private void executeCalculateCommandHelper(CalculateCommandResult calculateCommandResult) {
         //To fill
+    }
+
+    /**
+     * Executes the command from GUI and returns the {@code CommandResult}.
+     *
+     * @see Logic#execute(String)
+     */
+    public CommandResult executeGuiCommand(String commandText) {
+        try {
+            return executeCommand(commandText);
+        } catch (CommandException | ParseException | UnknownCommandResultTypeException e) {
+            return null;
+        }
     }
 }

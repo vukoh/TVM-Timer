@@ -57,9 +57,10 @@ public class StartCommand extends Command {
 
         for (BibNumber bibNumber : bibNumbers) {
             PersonStart personStart = new PersonStart(bibNumber);
-
-            //TODO Add personStart to system storage.
-            model.addPersonStart(personStart);
+            
+            if (!model.hasPersonStart(personStart)) {
+                model.addPersonStart(personStart);
+            }
         }
 
         return new GlobalCommandResult(MESSAGE_START_SUCCESS);

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="474.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Registered Participants">
+    <padding>
+      <Insets bottom="5.0" left="5.0" top="5.0" />
+    </padding>
+  </Label>
   <ListView fx:id="personRegisterListView" VBox.vgrow="ALWAYS" />
 </VBox>

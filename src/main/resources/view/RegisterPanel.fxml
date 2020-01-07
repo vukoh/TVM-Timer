@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Register Form">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <HBox VBox.vgrow="ALWAYS">
+                    <children>
+                        <HBox fx:id="pageInputPanel" prefHeight="400.0" prefWidth="523.0" stylesheets="@Theme.css" HBox.hgrow="ALWAYS">
+                            <children>
+                                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="524.0">
+                                            <children>
+                                                <Label fx:id="nameInput" stylesheets="@Theme.css" text="Name">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="15.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter diary name ..." VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label fx:id="bibNumberInput" stylesheets="@Theme.css" text="Bib Number">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="15.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField fx:id="bibNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page title ..." VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label fx:id="teamNumberInput" stylesheets="@Theme.css" text="Team Number">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField fx:id="teamNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page type ..." VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label fx:id="categoryInput" stylesheets="@Theme.css" text="Category">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField fx:id="categoryTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page description ..." VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Button fx:id="confirmButton" mnemonicParsing="false" onMouseClicked="#handleConfirmAction" text="CONFIRM">
+                                                    <HBox.margin>
+                                                        <Insets left="35.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                                <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancelAction" text="CANCEL">
+                                                    <HBox.margin>
+                                                        <Insets left="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
