@@ -26,7 +26,12 @@
                                                         <Insets left="35.0" top="15.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <TextField fx:id="nameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter diary name ..." VBox.vgrow="NEVER">
+                                                <TextField fx:id="nameTextField" maxHeight="-Infinity"
+                                                           maxWidth="-Infinity" minHeight="-Infinity"
+                                                           minWidth="-Infinity" onAction="#executeInput"
+                                                           prefHeight="25.0" prefWidth="450.0"
+                                                           promptText="Please enter participant name ..."
+                                                           VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
@@ -40,7 +45,12 @@
                                                         <Insets left="35.0" top="15.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <TextField fx:id="bibNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page title ..." VBox.vgrow="NEVER">
+                                                <TextField fx:id="bibNumberTextField" maxHeight="-Infinity"
+                                                           maxWidth="-Infinity" minHeight="-Infinity"
+                                                           minWidth="-Infinity" onAction="#executeInput"
+                                                           prefHeight="25.0" prefWidth="450.0"
+                                                           promptText="Please enter the bib number ..."
+                                                           VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
@@ -54,7 +64,12 @@
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <TextField fx:id="teamNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page type ..." VBox.vgrow="NEVER">
+                                                <TextField fx:id="teamNumberTextField" maxHeight="-Infinity"
+                                                           maxWidth="-Infinity" minHeight="-Infinity"
+                                                           minWidth="-Infinity" onAction="#executeInput"
+                                                           prefHeight="25.0" prefWidth="450.0"
+                                                           promptText="Please enter the team number (0 if no team) ..."
+                                                           VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
@@ -68,7 +83,12 @@
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <TextField fx:id="categoryTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="450.0" promptText="Please enter page description ..." VBox.vgrow="NEVER">
+                                                <TextField fx:id="categoryTextField" maxHeight="-Infinity"
+                                                           maxWidth="-Infinity" minHeight="-Infinity"
+                                                           minWidth="-Infinity" onAction="#executeInput"
+                                                           prefHeight="25.0" prefWidth="450.0"
+                                                           promptText="Enter category number (1: NUS Men, 2: NUS Women, 3: Open Men, 4: Open Women) ..."
+                                                           VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets left="35.0" top="5.0" />
                                                     </VBox.margin>
