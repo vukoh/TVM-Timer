@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private RegisterPanel registerPanel;
     private ResultDisplay resultDisplay;
+    private PersonResultPanel personResultPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -138,6 +139,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void initializePanels() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonRegisterList());
+        personResultPanel = new PersonResultPanel(logic.getFilteredPersonResultList());
         registerPanel = new RegisterPanel(this);
     }
 
@@ -257,6 +259,7 @@ public class MainWindow extends UiPart<Stage> {
             case CALCULATE:
                 featureMode.setText("Calculate Mode");
                 System.out.println("Switched to 'Calculate' mode");
+                versatilePanelPlaceholder.getChildren().add(personResultPanel.getRoot());
                 break;
             default:
                 featureMode.setText("Home");
