@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -112,6 +113,8 @@ public interface Model {
      */
     void updateFilteredPersonRegisterList(Predicate<PersonRegister> predicate);
 
+    public ObservableList<PersonRegister> getPersonRegisters();
+
     // PersonStart stuff
 
     /**
@@ -136,6 +139,8 @@ public interface Model {
      */
     void addPersonStart(PersonStart personStart);
 
+    public ObservableList<PersonStart> getPersonStarts();
+
     /**
      * Replaces the given personStart {@code target} with {@code editedPersonStart}.
      * {@code target} must exist in the address book.
@@ -159,6 +164,9 @@ public interface Model {
      * Replaces address book data with the data in {@code addressBook}.
      */
     //void setPersonResults(ReadOnlyPersonResults addressBook);
+
+
+    public void setPersonResults(List<PersonResult> personResults);
 
     /**
      * Returns true if a personResult with the same identity as {@code personResult} exists in the address book.
@@ -218,6 +226,8 @@ public interface Model {
      */
     void addPersonEnd(PersonEnd personEnd);
 
+    public ObservableList<PersonEnd> getPersonEnds();
+
     /**
      * Replaces the given personEnd {@code target} with {@code editedPersonEnd}.
      * {@code target} must exist in the address book.
@@ -252,6 +262,8 @@ public interface Model {
      * The endTime must exist in the address book.
      */
     void deleteEndTime(EndTime target);
+
+    public ObservableList<EndTime> getEndTimes();
 
     /**
      * Adds the given endTime.

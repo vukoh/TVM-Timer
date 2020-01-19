@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
- * Toggles between the different functions of the application.
+ * Command to register a new participant.
  */
 public class RegisterCommand extends Command {
 

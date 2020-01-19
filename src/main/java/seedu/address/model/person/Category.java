@@ -55,5 +55,20 @@ public enum Category {
         }
     }
 
+    public static int getCategoryCode(Category category) {
+        switch (category) {
+            case NUS_MEN:
+                return 1;
+            case NUS_WOMEN:
+                return 2;
+            case OPEN_MEN:
+                return 3;
+            case OPEN_WOMEN:
+                return 4;
+            default:
+                return 0;
+        }
+    }
+
 }
 

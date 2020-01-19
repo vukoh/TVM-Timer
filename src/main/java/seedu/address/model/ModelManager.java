@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -127,6 +128,11 @@ public class ModelManager implements Model {
         addressBook.setPersonRegister(target, editedPersonRegister);
     }
 
+    @Override
+    public ObservableList<PersonRegister> getPersonRegisters() {
+        return addressBook.getPersonRegisterList();
+    }
+
     //=========== PersonStart ================================================================================
 
     @Override
@@ -151,6 +157,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPersonStart);
 
         addressBook.setPersonStart(target, editedPersonStart);
+    }
+
+    @Override
+    public ObservableList<PersonStart> getPersonStarts() {
+        return addressBook.getPersonStartList();
     }
 
     //=========== PersonResult ================================================================================
@@ -179,6 +190,11 @@ public class ModelManager implements Model {
         addressBook.setPersonResult(target, editedPersonResult);
     }
 
+    @Override
+    public void setPersonResults(List<PersonResult> personResults) {
+        addressBook.setPersonResults(personResults);
+    }
+
     //=========== PersonEnd ================================================================================
 
     @Override
@@ -205,6 +221,11 @@ public class ModelManager implements Model {
         addressBook.setPersonEnd(target, editedPersonEnd);
     }
 
+    @Override
+    public ObservableList<PersonEnd> getPersonEnds() {
+        return addressBook.getPersonEndList();
+    }
+
     //=========== EndTime ================================================================================
 
     @Override
@@ -229,6 +250,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEndTime);
 
         addressBook.setEndTime(target, editedEndTime);
+    }
+
+    @Override
+    public ObservableList<EndTime> getEndTimes() {
+        return addressBook.getEndTimeList();
     }
 
     //=========== Filtered Person List Accessors =============================================================

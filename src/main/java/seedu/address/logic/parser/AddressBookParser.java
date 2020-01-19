@@ -12,11 +12,13 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.calculate.CalculateCommand;
 import seedu.address.logic.commands.finish.CompleteCommand;
 import seedu.address.logic.commands.finish.FinishCommand;
 import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.commands.register.RegisterCommand;
 import seedu.address.logic.commands.start.StartCommand;
+import seedu.address.logic.parser.calculate.CalculateCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.finish.CompleteCommandParser;
 import seedu.address.logic.parser.finish.FinishCommandParser;
@@ -144,7 +146,10 @@ public class AddressBookParser {
      */
     private Command parseCalculateCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            // To add in commands
+
+            case CalculateCommand.COMMAND_WORD:
+                return new CalculateCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
