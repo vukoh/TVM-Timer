@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.sql.Time;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,12 +26,13 @@ public class PersonResult {
     private final Category category;
     private final StartTime startTime;
     private final EndTime endTime;
+    private Duration timeTaken;
 
     /**
      * Every field must be present and not null.
      */
     public PersonResult(Name name, BibNumber bibNumber, TeamNumber teamNumber, Category category, StartTime startTime
-            , EndTime endTime) {
+            , EndTime endTime, Duration timeTaken) {
         requireAllNonNull(name, bibNumber, teamNumber, category);
         this.name = name;
         this.bibNumber = bibNumber;
@@ -37,6 +40,7 @@ public class PersonResult {
         this.category = category;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.timeTaken = timeTaken;
     }
 
     public Name getName() {
@@ -63,6 +67,14 @@ public class PersonResult {
         return endTime;
     }
 
+    public Duration getTimeTaken() {
+        return timeTaken;
+    }
+
+    public void calculateTimeTaken() {
+        this.timeTaken = Duration.between(this.startTime.getStartTime(), this.endTime.getEndTime());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,12 +90,13 @@ public class PersonResult {
                 && otherPersonResult.getBibNumber().equals(getBibNumber())
                 && otherPersonResult.getTeamNumber().equals(getTeamNumber())
                 && otherPersonResult.getStartTime().equals(getStartTime())
-                && otherPersonResult.getEndTime().equals(getEndTime());
+                && otherPersonResult.getEndTime().equals(getEndTime())
+                && otherPersonResult.getTimeTaken().equals(getTimeTaken());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, bibNumber, teamNumber, category, startTime, endTime);
+        return Objects.hash(name, bibNumber, teamNumber, category, startTime, endTime, timeTaken);
     }
 
     @Override
@@ -99,7 +112,9 @@ public class PersonResult {
                 .append(" StartTime: ")
                 .append(getStartTime())
                 .append(" EndTime: ")
-                .append(getEndTime());
+                .append(getEndTime())
+                .append(" TimeTaken: ")
+                .append(getTeamNumber());
         return builder.toString();
     }
 
