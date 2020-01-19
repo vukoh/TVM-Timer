@@ -1,0 +1,7 @@
+name,bibNumber,teamNumber,category
+Tom,789,0,NUS_WOMEN
+Tim,783329,0,OPEN_WOMEN
+"Test Person",123,11,NUS_WOMEN
+"Test Person",2222,1,NUS_WOMEN
+"Tim Lee",22222,12,OPEN_MEN
+"Tim Cook",245,2,NUS_WOMEN

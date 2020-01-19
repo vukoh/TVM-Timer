@@ -1,5 +1,11 @@
 package seedu.address.logic.commands.calculate;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import seedu.address.commons.util.FileUtil;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -10,6 +16,10 @@ import seedu.address.model.person.*;
 import seedu.address.model.team.TeamNumber;
 import seedu.address.model.time.EndTime;
 import seedu.address.model.time.StartTime;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -32,7 +42,7 @@ public class CalculateCommand extends Command {
             + "Parameters: "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Calculation and ranking successfully executed adn exported.";
+    public static final String MESSAGE_SUCCESS = "Calculation and ranking successfully executed and exported.";
 
 
     public CalculateCommand() {
@@ -89,8 +99,26 @@ public class CalculateCommand extends Command {
 
         List<PersonResult> personResults = new ArrayList<>(resultQueue);
         model.setPersonResults(personResults);
-        //TODO export to excel file
+        exportData();
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS));
+    }
+
+    public void exportData() {
+        try {
+            JsonNode jsonTree = new ObjectMapper().readTree(new File("data/personResult.json"));
+            CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
+            JsonNode firstObject = jsonTree.findValue("personResults").elements().next();
+            firstObject.fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
+            CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
+            CsvMapper csvMapper = new CsvMapper();
+            FileUtil.createIfMissing(Paths.get("src/main/personresults.csv"));
+            csvMapper.writerFor(JsonNode.class)
+                    .with(csvSchema)
+                    .writeValue(new File("src/main/resources/personresults.csv"), jsonTree.findValue("personResults"));
+
+        } catch (IOException e) {
+            System.out.println("IOException when trying to read JSON file for conversion to CSV with message: " + e.getMessage());
+        }
     }
 
     @Override
