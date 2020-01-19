@@ -1,6 +1,10 @@
 package seedu.address.model.time;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 /**
  * Represents the start time of a PersonStart object.
@@ -34,5 +38,15 @@ public class StartTime {
 
         StartTime otherStartTime = (StartTime) other;
         return otherStartTime.getStartTime().equals(getStartTime());
+    }
+
+    @Override
+    public String toString() {
+        if (startTime.equals(Instant.MIN)) {
+            return "Not Recorded";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+        return formatter.format(startTime);
     }
 }

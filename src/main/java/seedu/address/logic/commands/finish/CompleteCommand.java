@@ -38,13 +38,12 @@ public class CompleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-//        if (model.hasPersonRegister(toComplete)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
+        if (model.hasPersonEnd(toComplete)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
         //TODO Add the verification for whether racer has already been completed.
 
-//        model.addPersonRegister(toComplete);
-        //TODO Add toComplete to PersonEnd Storage
+        model.addPersonEnd(toComplete);
 
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS, toComplete));
     }

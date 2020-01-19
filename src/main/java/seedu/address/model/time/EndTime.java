@@ -1,6 +1,10 @@
 package seedu.address.model.time;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 /**
  * Represents the end time of in the application (To be recorded in UniqueEndTimeList and later assigned to relevant
@@ -39,5 +43,15 @@ public class EndTime {
 
         EndTime otherEndTime = (EndTime) other;
         return otherEndTime.getEndTime().equals(getEndTime());
+    }
+
+    @Override
+    public String toString() {
+        if (endTime.equals(Instant.MAX)) {
+            return "Not Recorded";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+        return formatter.format(endTime);
     }
 }
