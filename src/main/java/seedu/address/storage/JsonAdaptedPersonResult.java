@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,6 +34,7 @@ class JsonAdaptedPersonResult {
     private final String category;
     private final String startTime;
     private final String endTime;
+    private final String timeTaken;
 
     /**
      * Constructs a {@code JsonAdaptedPersonResult} with the given personResult details.
@@ -41,13 +43,15 @@ class JsonAdaptedPersonResult {
     public JsonAdaptedPersonResult(@JsonProperty("name") String name, @JsonProperty("bibNumber") String bibNumber,
                                      @JsonProperty("teamNumber") String teamNumber,
                                    @JsonProperty("category") String category,
-                                   @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime) {
+                                   @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
+                                   @JsonProperty("timeTaken") String timeTaken) {
         this.name = name;
         this.bibNumber = bibNumber;
         this.teamNumber = teamNumber;
         this.category = category;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.timeTaken = timeTaken;
     }
 
     /**
@@ -60,6 +64,7 @@ class JsonAdaptedPersonResult {
         category = source.getCategory().name();
         startTime = source.getStartTime().getStartTime().toString();
         endTime = source.getEndTime().getEndTime().toString();
+        timeTaken = source.getTimeTaken().toString();
     }
 
     /**
@@ -114,11 +119,14 @@ class JsonAdaptedPersonResult {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EndTime.class.getSimpleName()));
         }
         final EndTime modelEndTime = new EndTime(Instant.parse(endTime));
-
+        if (timeTaken == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Duration.class.getSimpleName()));
+        }
+        final Duration modelTimeTaken = Duration.parse(timeTaken);
 
 
         return new PersonResult(modelName, modelBibNumber, modelTeamNumber, modelCategory, modelStartTime,
-                modelEndTime);
+                modelEndTime, modelTimeTaken);
     }
 
 }
