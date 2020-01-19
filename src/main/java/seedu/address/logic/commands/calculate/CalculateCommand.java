@@ -111,7 +111,7 @@ public class CalculateCommand extends Command {
             firstObject.fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
             CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
             CsvMapper csvMapper = new CsvMapper();
-            FileUtil.createIfMissing(Paths.get("src/main/personresults.csv"));
+            FileUtil.createIfMissing(Paths.get("src/main/resources/personresults.csv"));
             csvMapper.writerFor(JsonNode.class)
                     .with(csvSchema)
                     .writeValue(new File("src/main/resources/personresults.csv"), jsonTree.findValue("personResults"));
