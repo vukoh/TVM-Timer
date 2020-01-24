@@ -403,6 +403,12 @@
     -fx-text-fill: black ;
 }
 
+#counterButton {
+    -fx-background-color: #3495eb;
+    -fx-border-radius: 5;
+    -fx-text-fill: white ;
+}
+
 #diaryHeader {
     -fx-font-size: 36;
     -fx-font-family: 'Roboto', sans-serif;
