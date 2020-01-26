@@ -11,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonStart;

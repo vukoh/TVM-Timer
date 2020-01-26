@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="540.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -13,7 +14,7 @@
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" style="-fx-border-color: black; -fx-wrap-text: true; -fx-font-size: 48;" stylesheets="@Theme.css" text="Countdown Timer" textAlignment="CENTER">
+            <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" style="-fx-border-color: black; -fx-wrap-text: true; -fx-font-size: 72; -fx-font-family: 'Monospaced'" stylesheets="@Theme.css" text="Countdown Timer" textAlignment="CENTER">
                <padding>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
