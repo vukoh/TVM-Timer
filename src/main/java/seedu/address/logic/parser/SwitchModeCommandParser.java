@@ -14,6 +14,7 @@ public class SwitchModeCommandParser implements Parser<SwitchModeCommand> {
     private static final String REGISTER = "REGISTER";
     private static final String START = "START";
     private static final String FINISH = "FINISH";
+    private static final String COMPLETE = "COMPLETE";
     private static final String CALCULATE = "CALCULATE";
 
 
@@ -37,6 +38,9 @@ public class SwitchModeCommandParser implements Parser<SwitchModeCommand> {
 
         case FINISH:
             return new SwitchModeCommand(FunctionMode.FINISH);
+
+        case COMPLETE:
+            return new SwitchModeCommand(FunctionMode.COMPLETE);
 
         case CALCULATE:
             return new SwitchModeCommand(FunctionMode.CALCULATE);

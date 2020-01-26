@@ -111,7 +111,7 @@
                   </VBox>
                   <VBox prefHeight="278.0" prefWidth="529.0">
                      <children>
-                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Timings" />
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Racer Positions" />
                         <ListView fx:id="personStartListView" prefHeight="318.0" prefWidth="278.0" VBox.vgrow="ALWAYS" />
                      </children></VBox>
                </children>

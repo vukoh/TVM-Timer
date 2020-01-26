@@ -22,6 +22,12 @@ public enum FunctionMode {
         }
     },
 
+    COMPLETE {
+        public String toString() {
+            return "complete";
+        }
+    },
+
     CALCULATE {
         public String toString() {
             return "calculate";

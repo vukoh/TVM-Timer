@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private RegisterPanel registerPanel;
     private StartPanel startPanel;
     private FinishPanel finishPanel;
+    private CompletePanel completePanel;
     private ResultDisplay resultDisplay;
     private PersonResultPanel personResultPanel;
     private HelpWindow helpWindow;
@@ -145,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         registerPanel = new RegisterPanel(this);
         startPanel = new StartPanel(this, logic.getFilteredPersonStartList());
         finishPanel = new FinishPanel(this, logic.getFilteredEndTimeList());
+        completePanel = new CompletePanel(this, logic.getFilteredPersonEndList());
     }
 
     /**
@@ -262,6 +264,11 @@ public class MainWindow extends UiPart<Stage> {
                 System.out.println("Switched to 'Finish' mode");
                 versatilePanelPlaceholder.getChildren().add(finishPanel.getRoot());
                 break;
+            case COMPLETE:
+                featureMode.setText("Complete Mode");
+                System.out.println("Switched to 'Complete' mode");
+                versatilePanelPlaceholder.getChildren().add(completePanel.getRoot());
+                break;
             case CALCULATE:
                 featureMode.setText("Calculate Mode");
                 System.out.println("Switched to 'Calculate' mode");
@@ -297,6 +304,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void switchFinish() {
         executeGuiCommand("switch finish");
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    /**
+     * Switch to complete mode.
+     */
+    @FXML
+    private void switchComplete() {
+        executeGuiCommand("switch complete");
         resultDisplay.setFeedbackToUser("");
     }
 

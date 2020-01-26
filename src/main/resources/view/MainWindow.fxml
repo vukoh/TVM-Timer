@@ -31,7 +31,7 @@
           </MenuBar>
           <VBox fx:id="feature_bar" layoutY="30.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="240.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
-              <Button fx:id="home" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" VBox.vgrow="NEVER" onAction="#switchHome">
+              <Button fx:id="home" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#switchHome" prefHeight="60.0" prefWidth="80.0" VBox.vgrow="NEVER">
                 <padding>
                   <Insets top="2.0" />
                 </padding>
@@ -75,6 +75,18 @@
                   <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                       <Image url="@../images/finish.png" />
+                    </image>
+                  </ImageView>
+                </graphic>
+              </Button>
+              <Button fx:id="complete" contentDisplay="CENTER" layoutX="10.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#switchComplete" prefHeight="60.0" prefWidth="80.0" VBox.vgrow="NEVER">
+                <padding>
+                  <Insets top="2.0" />
+                </padding>
+                <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/complete.png" />
                     </image>
                   </ImageView>
                 </graphic>

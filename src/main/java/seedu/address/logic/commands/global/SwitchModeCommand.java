@@ -27,6 +27,7 @@ public class SwitchModeCommand extends Command {
     private static final String SWITCH_TO_REGISTER_FUNCTION_FEEDBACK = "You are currently in register mode!";
     private static final String SWITCH_TO_START_FUNCTION_FEEDBACK = "You are currently in start mode!";
     private static final String SWITCH_TO_FINISH_FUNCTION_FEEDBACK = "You are currently in finish mode!";
+    private static final String SWITCH_TO_COMPLETE_FUNCTION_FEEDBACK = "You are currently in complete mode!";
     private static final String SWITCH_TO_CALCULATE_FUNCTION_FEEDBACK = "You are currently in calculate mode!";
 
     private final FunctionMode targetMode;
@@ -50,6 +51,10 @@ public class SwitchModeCommand extends Command {
         case FINISH:
             feedBackString = SWITCH_TO_FINISH_FUNCTION_FEEDBACK;
             LogicManager.setMode(FunctionMode.FINISH);
+            break;
+        case COMPLETE:
+            feedBackString = SWITCH_TO_COMPLETE_FUNCTION_FEEDBACK;
+            LogicManager.setMode(FunctionMode.COMPLETE);
             break;
         case CALCULATE:
             feedBackString = SWITCH_TO_CALCULATE_FUNCTION_FEEDBACK;

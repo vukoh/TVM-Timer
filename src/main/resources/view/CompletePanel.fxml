@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="540.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox prefHeight="540.0" prefWidth="600.0">
+            <children>
+                <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Complete">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <HBox prefHeight="510.0" prefWidth="600.0">
+                    <children>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="280.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
+                            <children>
+                        <Pane prefHeight="76.0" prefWidth="300.0" />
+                                <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="148.0" prefWidth="300.0">
+                                    <children>
+                                        <Label fx:id="bibNumberInput" alignment="CENTER" contentDisplay="CENTER" stylesheets="@Theme.css" text="Bib Number">
+                                            <VBox.margin>
+                                                <Insets left="35.0" top="15.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <TextField fx:id="bibNumberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                            <VBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                            </VBox.margin>
+                                        </TextField>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="270.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label fx:id="positionInput" stylesheets="@Theme.css" text="Position">
+                                            <VBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <TextField fx:id="positionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Position" VBox.vgrow="NEVER">
+                                            <VBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                            </VBox.margin>
+                                        </TextField>
+                                    </children>
+                                </VBox>
+                                <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Button fx:id="confirmButton" mnemonicParsing="false" onMouseClicked="#handleConfirmAction" text="CONFIRM">
+                                            <HBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancelAction" text="CANCEL">
+                                            <HBox.margin>
+                                                <Insets left="5.0" top="5.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="278.0" prefWidth="529.0">
+                            <children>
+                                <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Timings" />
+                                <ListView fx:id="personEndListView" prefHeight="318.0" prefWidth="278.0" VBox.vgrow="ALWAYS" />
+                            </children></VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

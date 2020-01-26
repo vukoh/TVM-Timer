@@ -71,6 +71,9 @@ public class AddressBookParser {
             case FINISH:
                 return parseFinishCommands(commandWord, arguments);
 
+            case COMPLETE:
+                return parseCompleteCommands(commandWord, arguments);
+
             case CALCULATE:
                 return parseCalculateCommands(commandWord, arguments);
 
@@ -128,6 +131,21 @@ public class AddressBookParser {
 
             case FinishCommand.COMMAND_WORD:
                 return new FinishCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into command for execution for 'Complete' mode commands.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Command parseCompleteCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
 
             case CompleteCommand.COMMAND_WORD:
                 return new CompleteCommandParser().parse(arguments);
