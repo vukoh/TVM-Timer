@@ -3,7 +3,6 @@ package seedu.address.ui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,9 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
-import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonStart;
 
 import java.time.LocalDateTime;

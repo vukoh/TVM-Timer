@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.PersonRegister;
 import seedu.address.model.person.PersonResult;
 import seedu.address.model.person.PersonStart;
+import seedu.address.model.time.EndTime;
 
 /**
  * API of the Logic component
@@ -39,6 +40,7 @@ public interface Logic {
 
     ObservableList<PersonResult> getFilteredPersonResultList();
 
+    ObservableList<EndTime> getFilteredEndTimeList();
 
     /**
      * Returns the user prefs' address book file path.

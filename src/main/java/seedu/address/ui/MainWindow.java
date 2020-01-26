@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private RegisterPanel registerPanel;
     private StartPanel startPanel;
+    private FinishPanel finishPanel;
     private ResultDisplay resultDisplay;
     private PersonResultPanel personResultPanel;
     private HelpWindow helpWindow;
@@ -143,6 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         personResultPanel = new PersonResultPanel(logic.getFilteredPersonResultList());
         registerPanel = new RegisterPanel(this);
         startPanel = new StartPanel(this, logic.getFilteredPersonStartList());
+        finishPanel = new FinishPanel(this, logic.getFilteredEndTimeList());
     }
 
     /**
@@ -258,6 +260,7 @@ public class MainWindow extends UiPart<Stage> {
             case FINISH:
                 featureMode.setText("Finish Mode");
                 System.out.println("Switched to 'Finish' mode");
+                versatilePanelPlaceholder.getChildren().add(finishPanel.getRoot());
                 break;
             case CALCULATE:
                 featureMode.setText("Calculate Mode");
