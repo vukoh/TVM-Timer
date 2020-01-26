@@ -87,7 +87,7 @@
                                                            maxWidth="-Infinity" minHeight="-Infinity"
                                                            minWidth="-Infinity" onAction="#executeInput"
                                                            prefHeight="25.0" prefWidth="450.0"
-                                                           promptText="Enter category number (1: NUS Men, 2: NUS Women, 3: Open Men, 4: Open Women) ..."
+                                                           promptText="1: NUS Men, 2: NUS Women, 3: Open Men, 4: Open Women. 5: Team"
                                                            VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets left="35.0" top="5.0" />
@@ -105,6 +105,11 @@
                                                 <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancelAction" text="CANCEL">
                                                     <HBox.margin>
                                                         <Insets left="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                                <Button fx:id="counterButton" mnemonicParsing="false" onMouseClicked="#handleCounterAction" text="Team Counter: 1">
+                                                    <HBox.margin>
+                                                        <Insets left="70.0" top="5.0" />
                                                     </HBox.margin>
                                                 </Button>
                                             </children>

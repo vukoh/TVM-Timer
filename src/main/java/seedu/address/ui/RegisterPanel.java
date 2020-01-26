@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
@@ -9,6 +10,8 @@ import javafx.scene.layout.Region;
 public class RegisterPanel extends UiPart<Region> {
 
     private static final String FXML = "RegisterPanel.fxml";
+
+    private int teamNumberCounter = 1;
 
     @FXML
     private TextField nameTextField;
@@ -21,6 +24,9 @@ public class RegisterPanel extends UiPart<Region> {
 
     @FXML
     private TextField categoryTextField;
+
+    @FXML
+    private Button counterButton;
 
     private MainWindow mainWindow;
 
@@ -63,6 +69,12 @@ public class RegisterPanel extends UiPart<Region> {
         clearAllInputFields();
     }
 
+    @FXML
+    void handleCounterAction() {
+        increaseTeamNumberCounter();
+        counterButton.setText("Team Counter: " + this.teamNumberCounter);
+    }
+
     /**
      * Utility method that clear all inputs from the various text fields.
      */
@@ -71,5 +83,9 @@ public class RegisterPanel extends UiPart<Region> {
         bibNumberTextField.clear();
         teamNumberTextField.clear();
         categoryTextField.clear();
+    }
+
+    private void increaseTeamNumberCounter() {
+        this.teamNumberCounter++;
     }
 }
