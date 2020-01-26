@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="540.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Start">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" style="-fx-border-color: black; -fx-wrap-text: true; -fx-font-size: 48;" stylesheets="@Theme.css" text="Countdown Timer" textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <HBox prefHeight="291.0" prefWidth="600.0">
+               <children>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="280.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="67.0" prefWidth="367.0">
+                           <children>
+                              <Label fx:id="bibNumberInputOne" alignment="CENTER" contentDisplay="CENTER" stylesheets="@Theme.css" text="Bib Number 1">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="bibNumberOneField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="67.0" prefWidth="367.0">
+                           <children>
+                              <Label fx:id="bibNumberInputTwo" stylesheets="@Theme.css" text="Bib Number 2">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="bibNumberTwoField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="bibNumberInputThree" stylesheets="@Theme.css" text="Bib Number 3">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="bibNumberThreeField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="bibNumberInputFour" stylesheets="@Theme.css" text="Bib Number 4">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="bibNumberFourField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="270.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="bibNumberInputFive" stylesheets="@Theme.css" text="Bib Number 5">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="bibNumberFiveField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Bib Number" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="confirmButton" mnemonicParsing="false" onMouseClicked="#handleConfirmAction" text="CONFIRM">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancelAction" text="CANCEL">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="278.0" prefWidth="529.0">
+                     <children>
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Timings" />
+                        <ListView fx:id="personStartListView" prefHeight="318.0" prefWidth="278.0" VBox.vgrow="ALWAYS" />
+                     </children></VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

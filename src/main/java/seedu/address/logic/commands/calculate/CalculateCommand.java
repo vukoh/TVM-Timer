@@ -99,7 +99,9 @@ public class CalculateCommand extends Command {
 
         List<PersonResult> personResults = new ArrayList<>(resultQueue);
         model.setPersonResults(personResults);
+        System.out.println("wow1");
         exportData();
+        System.out.println("wow");
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS));
     }
 

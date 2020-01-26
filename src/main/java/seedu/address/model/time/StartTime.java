@@ -45,7 +45,7 @@ public class StartTime {
         if (startTime.equals(Instant.MIN)) {
             return "Not Recorded";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss:SS")
                 .withZone(ZoneId.systemDefault());
         return formatter.format(startTime);
     }

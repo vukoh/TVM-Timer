@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private RegisterPanel registerPanel;
+    private StartPanel startPanel;
     private ResultDisplay resultDisplay;
     private PersonResultPanel personResultPanel;
     private HelpWindow helpWindow;
@@ -141,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonRegisterList());
         personResultPanel = new PersonResultPanel(logic.getFilteredPersonResultList());
         registerPanel = new RegisterPanel(this);
+        startPanel = new StartPanel(this, logic.getFilteredPersonStartList());
     }
 
     /**
@@ -251,6 +253,7 @@ public class MainWindow extends UiPart<Stage> {
             case START:
                 featureMode.setText("Start Mode");
                 System.out.println("Switched to 'Start' mode");
+                versatilePanelPlaceholder.getChildren().add(startPanel.getRoot());
                 break;
             case FINISH:
                 featureMode.setText("Finish Mode");

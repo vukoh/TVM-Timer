@@ -50,7 +50,7 @@ public class EndTime {
         if (endTime.equals(Instant.MAX)) {
             return "Not Recorded";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss:SS")
                 .withZone(ZoneId.systemDefault());
         return formatter.format(endTime);
     }
