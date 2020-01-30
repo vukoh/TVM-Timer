@@ -1,12 +1,19 @@
 package seedu.address.logic;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -49,6 +56,9 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            if (commandResult.isCalculateCommandResult()) {
+                exportData();
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -107,5 +117,24 @@ public class LogicManager implements Logic {
 
     public static void setMode(FunctionMode mode) {
         LogicManager.mode = mode;
+    }
+
+    // Place somewhere more OOP
+    public void exportData() {
+        try {
+            JsonNode jsonTree = new ObjectMapper().readTree(new File("data/personResult.json"));
+            CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
+            JsonNode firstObject = jsonTree.findValue("personResults").elements().next();
+            firstObject.fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
+            CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
+            CsvMapper csvMapper = new CsvMapper();
+            FileUtil.createIfMissing(Paths.get("src/main/resources/personresults.csv"));
+            csvMapper.writerFor(JsonNode.class)
+                    .with(csvSchema)
+                    .writeValue(new File("src/main/resources/personresults.csv"), jsonTree.findValue("personResults"));
+
+        } catch (IOException e) {
+            System.out.println("IOException when trying to read JSON file for conversion to CSV with message: " + e.getMessage());
+        }
     }
 }

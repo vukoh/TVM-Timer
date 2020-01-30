@@ -42,7 +42,7 @@ public class CalculateCommand extends Command {
             + "Parameters: "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Calculation and ranking successfully executed and exported.";
+    public static final String MESSAGE_SUCCESS = "Calculation successful!";
 
 
     public CalculateCommand() {
@@ -100,27 +100,8 @@ public class CalculateCommand extends Command {
         List<PersonResult> personResults = new ArrayList<>(resultQueue);
         model.setPersonResults(personResults);
         System.out.println("wow1");
-        exportData();
         System.out.println("wow");
         return new GlobalCommandResult(String.format(MESSAGE_SUCCESS));
-    }
-
-    public void exportData() {
-        try {
-            JsonNode jsonTree = new ObjectMapper().readTree(new File("data/personResult.json"));
-            CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
-            JsonNode firstObject = jsonTree.findValue("personResults").elements().next();
-            firstObject.fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
-            CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
-            CsvMapper csvMapper = new CsvMapper();
-            FileUtil.createIfMissing(Paths.get("src/main/resources/personresults.csv"));
-            csvMapper.writerFor(JsonNode.class)
-                    .with(csvSchema)
-                    .writeValue(new File("src/main/resources/personresults.csv"), jsonTree.findValue("personResults"));
-
-        } catch (IOException e) {
-            System.out.println("IOException when trying to read JSON file for conversion to CSV with message: " + e.getMessage());
-        }
     }
 
     @Override

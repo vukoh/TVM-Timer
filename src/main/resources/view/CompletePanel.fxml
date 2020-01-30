@@ -34,12 +34,12 @@
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="270.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Label fx:id="positionInput" stylesheets="@Theme.css" text="Position">
+                                        <Label fx:id="positionInput" stylesheets="@Theme.css" text="Chip Number">
                                             <VBox.margin>
                                                 <Insets left="35.0" top="5.0" />
                                             </VBox.margin>
                                         </Label>
-                                        <TextField fx:id="positionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Position" VBox.vgrow="NEVER">
+                                        <TextField fx:id="positionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#executeInput" prefHeight="25.0" prefWidth="200.0" promptText="Enter Chip Number" VBox.vgrow="NEVER">
                                             <VBox.margin>
                                                 <Insets left="35.0" top="5.0" />
                                             </VBox.margin>
