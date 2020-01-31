@@ -56,7 +56,8 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-            if (commandResult.isCalculateCommandResult()) {
+            //To check with Khairul if can change methods in CommandResult to be abstract for proper OOP
+            if (commandText.equals("calculate")) {
                 exportData();
             }
         } catch (IOException ioe) {

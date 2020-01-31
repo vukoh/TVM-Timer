@@ -136,6 +136,10 @@ public class ParserUtil {
             case "open women":
                 return Category.OPEN_WOMEN;
 
+            case "5":
+            case "team":
+                return Category.TEAM;
+
             default:
                 throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }

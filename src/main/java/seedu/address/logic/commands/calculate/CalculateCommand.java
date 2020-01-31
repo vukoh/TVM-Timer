@@ -83,7 +83,7 @@ public class CalculateCommand extends Command {
             }
             for (PersonEnd personEnd : ends) {
                 if (personEnd.getBibNumber().equals(bibNumber)) {
-                    endTime = endTimes.get(personEnd.getIndex().index);
+                    endTime = endTimes.get(personEnd.getIndex().index - 1);
                 }
             }
 
