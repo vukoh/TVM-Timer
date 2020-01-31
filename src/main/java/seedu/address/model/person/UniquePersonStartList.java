@@ -31,7 +31,7 @@ public class UniquePersonStartList implements Iterable<PersonStart> {
      */
     public boolean contains(PersonStart toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isDuplicateBibNumber);
     }
 
     /**

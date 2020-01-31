@@ -33,7 +33,10 @@ public class StartCommand extends Command {
     public static final String MESSAGE_START_SUCCESS = "Timer for the racers specified has successfully been " +
             "started!";
     public static final String MESSAGE_NO_BIB_NUMBER = "At least one bib number must be specified.";
-    public static final String MESSAGE_RACER_NOT_FOUND = "One of the bib number specified has yet to be registered!";
+    public static final String MESSAGE_ALL_DUPLICATE_BIB_NUMBER = "All bib number specified are duplicates. " +
+            "Duplicate bib numbers will not be added to the list.";
+    public static final String MESSAGE_DUPLICATE_BIB_NUMBER = "Duplicated bib numbers detected. Duplicates will not " +
+            "be added to the list.";
 
     private final ArrayList<BibNumber> bibNumbers;
 
@@ -49,6 +52,8 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        boolean isAllDuplicates = true;
+        boolean hasDuplicates = false;
         List<PersonRegister> lastShownList = model.getFilteredPersonRegisterList();
 
         if (bibNumbers.isEmpty()) {
@@ -61,8 +66,19 @@ public class StartCommand extends Command {
             PersonStart personStart = new PersonStart(bibNumber, instant);
             
             if (!model.hasPersonStart(personStart)) {
+                isAllDuplicates = false;
                 model.addPersonStart(personStart);
+            } else {
+                hasDuplicates = true;
             }
+        }
+
+        if (isAllDuplicates) {
+            return new GlobalCommandResult(MESSAGE_ALL_DUPLICATE_BIB_NUMBER);
+        }
+
+        if (hasDuplicates) {
+            return new GlobalCommandResult(MESSAGE_DUPLICATE_BIB_NUMBER);
         }
 
         return new GlobalCommandResult(MESSAGE_START_SUCCESS);

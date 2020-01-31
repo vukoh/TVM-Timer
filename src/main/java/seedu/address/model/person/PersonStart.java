@@ -75,6 +75,19 @@ public class PersonStart {
                 && otherPersonStart.isVerified() == (isVerified());
     }
 
+    public boolean isDuplicateBibNumber(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PersonStart)) {
+            return false;
+        }
+
+        PersonStart otherPersonStart = (PersonStart) other;
+        return otherPersonStart.getBibNumber().equals(getBibNumber());
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
