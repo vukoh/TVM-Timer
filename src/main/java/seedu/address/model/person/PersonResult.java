@@ -26,13 +26,13 @@ public class PersonResult {
     private final Category category;
     private final StartTime startTime;
     private final EndTime endTime;
-    private Duration timeTaken;
+    private long timeTaken; //Time taken in seconds
 
     /**
      * Every field must be present and not null.
      */
     public PersonResult(Name name, BibNumber bibNumber, TeamNumber teamNumber, Category category, StartTime startTime
-            , EndTime endTime, Duration timeTaken) {
+            , EndTime endTime, long timeTaken) {
         requireAllNonNull(name, bibNumber, teamNumber, category);
         this.name = name;
         this.bibNumber = bibNumber;
@@ -67,12 +67,12 @@ public class PersonResult {
         return endTime;
     }
 
-    public Duration getTimeTaken() {
+    public long getTimeTaken() {
         return timeTaken;
     }
 
     public void calculateTimeTaken() {
-        this.timeTaken = Duration.between(this.startTime.getStartTime(), this.endTime.getEndTime());
+        this.timeTaken = Duration.between(this.startTime.getStartTime(), this.endTime.getEndTime()).getSeconds();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PersonResult {
                 && otherPersonResult.getTeamNumber().equals(getTeamNumber())
                 && otherPersonResult.getStartTime().equals(getStartTime())
                 && otherPersonResult.getEndTime().equals(getEndTime())
-                && otherPersonResult.getTimeTaken().equals(getTimeTaken());
+                && otherPersonResult.getTimeTaken() == (getTimeTaken());
     }
 
     @Override

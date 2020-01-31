@@ -55,7 +55,7 @@ public class PersonResultCard extends UiPart<Region> {
         category.setText("Category: " + person.getCategory().toString());
         startTime.setText("Time Started: " + person.getStartTime().toString());
         endTime.setText("Time Ended: " + person.getEndTime().toString());
-        long durationInSeconds = person.getTimeTaken().toSeconds();
+        long durationInSeconds = person.getTimeTaken();
         String duration = String.format("%d:%02d:%02d", durationInSeconds / 3600,
                 (durationInSeconds % 3600) / 60, (durationInSeconds % 60));
         timeTaken.setText("Total Time taken: " + duration);

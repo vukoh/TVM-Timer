@@ -56,7 +56,7 @@ public class CalculateCommand extends Command {
             int categoryDifference = Category.getCategoryCode(person.getCategory())
                     - Category.getCategoryCode(other.getCategory());
             if (categoryDifference == 0) {
-                return person.getTimeTaken().compareTo(other.getTimeTaken());
+                return (int) (person.getTimeTaken() - (other.getTimeTaken()));
             } else {
                 return categoryDifference;
             }
@@ -74,7 +74,7 @@ public class CalculateCommand extends Command {
             Category category = personRegister.getCategory();
             StartTime startTime = null;
             EndTime endTime = null;
-            Duration timeTaken;
+            long timeTaken;
 
             for (PersonStart personStart : starts) {
                 if (personStart.getBibNumber().equals(bibNumber)) {
@@ -91,7 +91,7 @@ public class CalculateCommand extends Command {
                 startTime = new StartTime(Instant.MIN);
                 endTime = new EndTime(Instant.MAX);
             }
-            timeTaken = Duration.between(startTime.getStartTime(), endTime.getEndTime());
+            timeTaken = Duration.between(startTime.getStartTime(), endTime.getEndTime()).getSeconds();
             PersonResult personResult = new PersonResult(name, bibNumber, teamNumber, category,
                     startTime, endTime, timeTaken);
             resultQueue.add(personResult);

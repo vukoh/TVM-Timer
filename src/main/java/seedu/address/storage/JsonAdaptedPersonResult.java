@@ -64,7 +64,7 @@ class JsonAdaptedPersonResult {
         category = source.getCategory().name();
         startTime = source.getStartTime().getStartTime().toString();
         endTime = source.getEndTime().getEndTime().toString();
-        timeTaken = source.getTimeTaken().toString();
+        timeTaken = source.getTimeTaken() + "";
     }
 
     /**
@@ -120,9 +120,9 @@ class JsonAdaptedPersonResult {
         }
         final EndTime modelEndTime = new EndTime(Instant.parse(endTime));
         if (timeTaken == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Duration.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Long.class.getSimpleName()));
         }
-        final Duration modelTimeTaken = Duration.parse(timeTaken);
+        final long modelTimeTaken = Duration.parse(timeTaken).getSeconds();
 
 
         return new PersonResult(modelName, modelBibNumber, modelTeamNumber, modelCategory, modelStartTime,
