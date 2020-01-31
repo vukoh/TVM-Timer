@@ -31,7 +31,7 @@ public class UniquePersonEndList implements Iterable<PersonEnd> {
      */
     public boolean contains(PersonEnd toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isDuplicate);
     }
 
     /**

@@ -48,6 +48,20 @@ public class PersonEnd {
                 && otherPersonEnd.getIndex().equals(getIndex());
     }
 
+    public boolean isDuplicate(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PersonEnd)) {
+            return false;
+        }
+
+        PersonEnd otherPersonEnd = (PersonEnd) other;
+        return otherPersonEnd.getBibNumber().equals(getBibNumber())
+                || otherPersonEnd.getIndex().equals(getIndex());
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

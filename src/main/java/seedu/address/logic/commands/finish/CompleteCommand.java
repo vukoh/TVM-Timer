@@ -41,7 +41,6 @@ public class CompleteCommand extends Command {
         if (model.hasPersonEnd(toComplete)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-        //TODO Add the verification for whether racer has already been completed.
 
         model.addPersonEnd(toComplete);
 
