@@ -35,7 +35,34 @@
             <VBox alignment="CENTER" GridPane.rowIndex="1">
                 <Button fx:id="finishButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleFinishAction" prefHeight="102.0" prefWidth="307.0" stylesheets="@Theme.css" text="FINISH" />
             </VBox>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+             <VBox layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="270.0" GridPane.rowIndex="2" VBox.vgrow="ALWAYS">
+                 <children>
+                     <Label fx:id="runners" stylesheets="@Theme.css" text="Runners Completed">
+                         <VBox.margin>
+                             <Insets left="35.0" top="5.0" />
+                         </VBox.margin>
+                     </Label>
+                     <TextField fx:id="runnersCompleted" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Enter Number of Racers" VBox.vgrow="NEVER">
+                         <VBox.margin>
+                             <Insets left="35.0" top="5.0" />
+                         </VBox.margin>
+                     </TextField>
+                     <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                         <children>
+                             <Button fx:id="confirmButton" mnemonicParsing="false" onMouseClicked="#handleConfirmAction" text="CONFIRM">
+                                 <HBox.margin>
+                                     <Insets left="35.0" top="5.0" />
+                                 </HBox.margin>
+                             </Button>
+                             <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#handleCancelAction" text="CANCEL">
+                                 <HBox.margin>
+                                     <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                             </Button>
+                         </children>
+                     </HBox>
+                 </children>
+             </VBox>
                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" stylesheets="@Theme.css" text="Timings" GridPane.columnIndex="1" />
                     <ListView fx:id="endTimeListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS" />
          </children>

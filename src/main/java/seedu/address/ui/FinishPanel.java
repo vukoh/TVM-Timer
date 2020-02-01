@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 import seedu.address.model.time.EndTime;
@@ -21,6 +22,9 @@ public class FinishPanel extends UiPart<Region> {
 
     @FXML
     private Label timer;
+
+    @FXML
+    private TextField runnersCompleted;
 
     @FXML
     private ListView<EndTime> endTimeListView;
@@ -40,14 +44,27 @@ public class FinishPanel extends UiPart<Region> {
      * Executes a RegisterCommand, based on the input provided in the GUI.
      */
     @FXML
-    void executeInput() {
+    void executeInput(int noRacers) {
         String command = "finish";
-        mainWindow.executeGuiCommand(command);
+        for(int i = 0; i < noRacers; i++) {
+            mainWindow.executeGuiCommand(command);
+        }
     }
 
     @FXML
     void handleFinishAction() {
-        executeInput();
+        executeInput(1);
+    }
+
+    @FXML
+    void handleConfirmAction() {
+        int noRacers = Integer.valueOf(runnersCompleted.getText());
+        executeInput(noRacers);
+    }
+
+    @FXML
+    void handleCancelAction() {
+        runnersCompleted.clear();
     }
 
     private void initClock() {
